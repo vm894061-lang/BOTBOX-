@@ -3,273 +3,469 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Tools Directory - Find Free & Paid Software</title>
-    <!-- Tailwind CSS for styling -->
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-slate-50 text-slate-800 font-sans antialiased">
+    <title>Ultimate AI Tools Directory</title>
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-color: #38bdf8;
+            --accent-hover: #0ea5e9;
+            --tag-free: #10b981;
+            --tag-paid: #f59e0b;
+            --border-color: #334155;
+        }
 
-    <!-- Header / Navbar Banner -->
-    <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-xs">
-        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-                <div class="w-9 h-9 bg-indigo-600 rounded-xl flex items-center justify-center text-white font-black text-xl">A</div>
-                <span class="text-xl font-extrabold tracking-tight bg-gradient-to-r cb from-indigo-600 to-blue-500 bg-clip-text text-transparent">BOTBOX</span>
-            </div>
-            <div class="text-sm font-medium text-slate-500 hidden sm:block">
-                Your Ultimate Free AI Directory
-            </div>
-        </div>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            padding: 2rem 1rem;
+            line-height: 1.5;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .controls-container {
+            max-width: 1200px;
+            margin: 0 auto 2rem auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 0.8rem 1.2rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .search-bar:focus {
+            border-color: var(--accent-color);
+        }
+
+        .filter-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-secondary);
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background-color: var(--accent-color);
+            color: var(--bg-primary);
+            border-color: var(--accent-color);
+        }
+
+        .directory-section {
+            max-width: 1200px;
+            margin: 0 auto 3rem auto;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .item-count {
+            font-size: 1rem;
+            background-color: var(--border-color);
+            color: var(--text-secondary);
+            padding: 0.2rem 0.8rem;
+            border-radius: 12px;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .tool-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent-color);
+        }
+
+        .tool-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .tool-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .tool-tag {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .tag-free {
+            background-color: rgba(16, 185, 129, 0.15);
+            color: var(--tag-free);
+        }
+
+        .tag-paid {
+            background-color: rgba(245, 158, 11, 0.15);
+            color: var(--tag-paid);
+        }
+
+        .tool-desc {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .tool-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .tool-cat {
+            font-size: 0.85rem;
+            color: var(--accent-color);
+            background-color: rgba(56, 189, 248, 0.1);
+            padding: 0.1rem 0.5rem;
+            border-radius: 4px;
+        }
+
+        .tool-link {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .tool-link:hover {
+            color: var(--accent-color);
+        }
+
+        .no-results {
+            text-align: center;
+            color: var(--text-secondary);
+            grid-column: 1 / -1;
+            padding: 3rem;
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>AI Tools Directory</h1>
+        <p>Explore 100 curated AI platforms to supercharge your workflow</p>
     </header>
 
-    <!-- Main Content Area Grid -->
-    <div class="max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
-        
-        <!-- LEFT COLUMN: Search & Core Database Display (8 Rows Wide on Desktop) -->
-        <main class="lg:col-span-8 space-y-6">
-            
-            <!-- AIXPLORIA-STYLE HERO SEARCH COLUMN -->
-            <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs text-center space-y-4">
-                <h1 class="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Search Over Best AI Tools Available</h1>
-                <p class="text-sm text-slate-500 max-w-md mx-auto">Discover free alternatives and top-tier premium software platforms optimized for your specific projects.</p>
-                
-                <!-- Instant Filter Input Bar -->
-                <div class="relative max-w-xl mx-auto mt-2">
-                    <input 
-                        type="text" 
-                        id="search-input"
-                        placeholder="Search tools by name, utility, or keywords..." 
-                        class="w-full pl-12 pr-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition"
-                        oninput="filterDirectoryData()"
-                    />
-                    <span class="absolute left-4 top-4 text-slate-400 font-bold">🔍</span>
-                </div>
-            </div>
-
-            <!-- THE TWO MAIN LAYOUT ROWS (FREE VS PAID) -->
-            <div class="space-y-8">
-                
-                <!-- ROW 1: FREE & FREEMIUM PLATFORMS -->
-                <div>
-                    <div class="flex items-center space-x-2.5 mb-4 px-1">
-                        <div class="w-2.5 h-6 bg-emerald-500 rounded-full"></div>
-                        <h2 class="text-xl font-bold text-slate-900 tracking-tight">Free & Freemium Alternatives</h2>
-                        <span id="free-count" class="bg-emerald-50 text-emerald-700 text-xs font-semibold px-2.5 py-0.5 rounded-full border border-emerald-100">0 loaded</span>
-                    </div>
-                    <div id="free-row-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <!-- Populated Dynamically -->
-                    </div>
-                </div>
-
-                <!-- ROW 2: PAID & PREMIUM PLATFORMS -->
-                <div>
-                    <div class="flex items-center space-x-2.5 mb-4 px-1">
-                        <div class="w-2.5 h-6 bg-indigo-500 rounded-full"></div>
-                        <h2 class="text-xl font-bold text-slate-900 tracking-tight">Premium & Pro Paid Software</h2>
-                        <span id="paid-count" class="bg-indigo-50 text-indigo-700 text-xs font-semibold px-2.5 py-0.5 rounded-full border border-indigo-100">0 loaded</span>
-                    </div>
-                    <div id="paid-row-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <!-- Populated Dynamically -->
-                    </div>
-                </div>
-
-            </div>
-        </main>
-
-        <!-- RIGHT COLUMN: STICKY SIDEBAR (4 Rows Wide on Desktop) -->
-        <aside class="lg:col-span-4 space-y-6">
-            
-            <!-- POPULAR CATEGORIES WIDGET (Aixploria Style) -->
-            <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs sticky top-24">
-                <h3 class="text-sm font-bold uppercase tracking-wider text-slate-400 mb-3.5">Popular Categories</h3>
-                <nav id="sidebar-categories" class="space-y-1">
-                    <!-- JavaScript automatically generates menu tags here -->
-                </nav>
-
-                <!-- WORKSPACE PROMOTION: YOUTUBE VIDEO FEATURE BLOCK -->
-                <div class="mt-6 pt-6 border-t border-slate-100 space-y-4">
-                    <h3 class="text-sm font-bold uppercase tracking-wider text-slate-400">Featured AI Breakdown</h3>
-                    
-                    <!-- Content Creator Channel Hook -->
-                    <div class="bg-gradient-to-br from-slate-900 to-indigo-950 text-white rounded-xl p-4 relative overflow-hidden shadow-md">
-                        <div class="relative z-10 space-y-2">
-                            <span class="bg-red-600 text-white text-[10px] uppercase font-bold px-2 py-0.5 rounded tracking-widest">Trending Talks</span>
-                            <h4 class="font-bold text-sm leading-tight">Learn how to build AI video channels fast!</h4>
-                            <p class="text-xs text-slate-300">Watch our latest continuous recap tutorials mapping strategy and edits.</p>
-                            
-                            <!-- Video Embed Anchor / Link Placeholder -->
-                            <a href="https://youtube.com" target="_blank" class="inline-flex items-center mt-2 text-xs font-bold text-red-400 hover:text-red-300 transition">
-                                Watch Tutorial Video ➔
-                            </a>
-                        </div>
-                        <div class="absolute right-[-10px] bottom-[-10px] text-slate-800 text-7xl font-black select-none opacity-20">▶</div>
-                    </div>
-                </div>
-            </div>
-
-        </aside>
+    <div class="controls-container">
+        <input type="text" id="searchBar" class="search-bar" placeholder="Search tools by name, description, or keyword...">
+        <div class="filter-buttons" id="filterContainer">
+            <!-- Populated dynamically via JS -->
+        </div>
     </div>
 
-    <!-- CORE LOGIC DATABASE & RENDER ENGINES -->
-    <script>
-        // Database structured clearly for quick updates
-        const toolDataset = [
-            { const toolDataset = [
-  // --- Productivity ---
-  { name: "ChatGPT", pricing: "Freemium", category: "Productivity", tag: "Chat", desc: "Leader in conversational AI and research.", url: "https://chatgpt.com" },
-  { name: "Claude", pricing: "Freemium", category: "Productivity", tag: "Writing", desc: "Strong reasoning and coding assistant.", url: "https://claude.ai" },
-  { name: "Gemini", pricing: "Freemium", category: "Productivity", tag: "Google", desc: "Multimodal AI integrated with Google.", url: "https://gemini.google.com" },
-  { name: "Perplexity", pricing: "Free", category: "Productivity", tag: "Search", desc: "AI-powered conversational search engine.", url: "https://perplexity.ai" },
-  { name: "Notion AI", pricing: "Paid", category: "Productivity", tag: "Notes", desc: "AI-enhanced workspace and notes.", url: "https://notion.so" },
-  { name: "Taskade", pricing: "Freemium", category: "Productivity", tag: "Agents", desc: "AI-driven project management.", url: "https://taskade.com" },
-  { name: "Otter.ai", pricing: "Freemium", category: "Productivity", tag: "Meeting", desc: "Real-time meeting transcription.", url: "https://otter.ai" },
-  { name: "Fireflies.ai", pricing: "Freemium", category: "Productivity", tag: "Meeting", desc: "AI meeting note taker.", url: "https://fireflies.ai" },
-  
-  // --- Design & Image ---
-  { name: "Midjourney", pricing: "Paid", category: "Design", tag: "Art", desc: "High-quality image generation.", url: "https://midjourney.com" },
-  { name: "Canva", pricing: "Freemium", category: "Design", tag: "Graphics", desc: "All-in-one design and AI editing.", url: "https://canva.com" },
-  { name: "Adobe Firefly", pricing: "Paid", category: "Design", tag: "Photo", desc: "Generative fill and image tools.", url: "https://firefly.adobe.com" },
-  { name: "Looka", pricing: "Paid", category: "Design", tag: "Logo", desc: "AI-powered logo generation.", url: "https://looka.com" },
-  { name: "Ideogram", pricing: "Freemium", category: "Design", tag: "Art", desc: "Great text rendering in images.", url: "https://ideogram.ai" },
-  { name: "Framer AI", pricing: "Freemium", category: "Design", tag: "Web", desc: "Build sites from text prompts.", url: "https://framer.com" },
-  { name: "Galileo AI", pricing: "Paid", category: "Design", tag: "UI", desc: "Generate UI designs from text.", url: "https://usegalileo.ai" },
-  { name: "Uizard", pricing: "Freemium", category: "Design", tag: "UI", desc: "AI-powered mockup design.", url: "https://uizard.io" },
-  
-  // --- Video & Audio ---
-  { name: "Runway Gen-3", pricing: "Paid", category: "Video", tag: "Motion", desc: "High-fidelity video generation.", url: "https://runwayml.com" },
-  { name: "Luma Dream Machine", pricing: "Freemium", category: "Video", tag: "Motion", desc: "Realistic 3D motion from photos.", url: "https://lumalabs.ai" },
-  { name: "ElevenLabs", pricing: "Freemium", category: "Video", tag: "Voice", desc: "Industry-leading AI voice cloning.", url: "https://elevenlabs.io" },
-  { name: "Descript", pricing: "Freemium", category: "Video", tag: "Editing", desc: "Edit video by editing text.", url: "https://descript.com" },
-  { name: "Synthesia", pricing: "Paid", category: "Video", tag: "Avatar", desc: "AI avatars for presentations.", url: "https://synthesia.io" },
-  { name: "Opus Clip", pricing: "Freemium", category: "Video", tag: "Editing", desc: "Turn long videos into shorts.", url: "https://opus.pro" },
-  { name: "Pictory", pricing: "Paid", category: "Video", tag: "Marketing", desc: "Script to video automation.", url: "https://pictory.ai" },
-  
-  // --- Marketing & SEO ---
-  { name: "Surfer SEO", pricing: "Paid", category: "Marketing", tag: "SEO", desc: "Analyze pages for ranking.", url: "https://surferseo.com" },
-  { name: "Jasper AI", pricing: "Paid", category: "Marketing", tag: "Writing", desc: "Content generator for brands.", url: "https://jasper.ai" },
-  { name: "Copy.ai", pricing: "Freemium", category: "Marketing", tag: "Writing", desc: "Marketing copy assistant.", url: "https://copy.ai" },
-  { name: "Writesonic", pricing: "Freemium", category: "Marketing", tag: "SEO", desc: "Article and ad writer.", url: "https://writesonic.com" },
-  { name: "Brand24", pricing: "Paid", category: "Marketing", tag: "Social", desc: "AI social sentiment analysis.", url: "https://brand24.com" },
-  { name: "SocialBee", pricing: "Paid", category: "Marketing", tag: "Social", desc: "AI social media management.", url: "https://socialbee.io" },
-  { name: "HubSpot AI", pricing: "Freemium", category: "Marketing", tag: "CRM", desc: "Automation for sales and marketing.", url: "https://hubspot.com" },
-  
-  // --- Coding & Dev ---
-  { name: "Cursor", pricing: "Freemium", category: "Coding", tag: "Editor", desc: "AI code editor for big projects.", url: "https://cursor.sh" },
-  { name: "GitHub Copilot", pricing: "Paid", category: "Coding", tag: "Coding", desc: "The standard AI coding assistant.", url: "https://github.com/features/copilot" },
-  { name: "Codeium", pricing: "Free", category: "Coding", tag: "Coding", desc: "Fast and free coding extension.", url: "https://codeium.com" },
-  { name: "Blackbox AI", pricing: "Freemium", category: "Coding", tag: "Coding", desc: "Code generation and search.", url: "https://blackbox.ai" },
-  { name: "Replit", pricing: "Freemium", category: "Coding", tag: "Editor", desc: "Online IDE with AI support.", url: "https://replit.com" },
-  { name: "Snyk", pricing: "Freemium", category: "Coding", tag: "Security", desc: "AI-powered code vulnerability scan.", url: "https://snyk.io" },
-  
-  // --- Add more rows below this point ---
-  { name: "Gamma", pricing: "Freemium", category: "Productivity", tag: "Slide", desc: "Create slides from text.", url: "https://gamma.app" },
-  { name: "Perplexity", pricing: "Free", category: "Search", tag: "Research", desc: "Search with AI sources.", url: "https://perplexity.ai" },
-  { name: "Grammarly", pricing: "Freemium", category: "Writing", tag: "Editor", desc: "AI grammar and style checker.", url: "https://grammarly.com" },
-  { name: "Wordtune", pricing: "Freemium", category: "Writing", tag: "Editor", desc: "Rewrite and refine sentences.", url: "https://wordtune.com" },
-  { name: "Zapier", pricing: "Freemium", category: "Workflow", tag: "Automation", desc: "Connect apps with AI workflows.", url: "https://zapier.com" },
-  { name: "Buffer", pricing: "Freemium", category: "Marketing", tag: "Social", desc: "AI scheduling for social.", url: "https://buffer.com" },
-  { name: "Beautiful.ai", pricing: "Paid", category: "Design", tag: "Slide", desc: "Smart presentation design.", url: "https://beautiful.ai" },
-  { name: "Topaz Photo", pricing: "Paid", category: "Design", tag: "Photo", desc: "Upscale and sharpen photos.", url: "https://topazlabs.com" },
-  { name: "Stable Diffusion", pricing: "Free", category: "Design", tag: "Art", desc: "Open-source image generator.", url: "https://stability.ai" },
-  { name: "Tidio", pricing: "Freemium", category: "Marketing", tag: "Chatbot", desc: "AI chatbot for support.", url: "https://tidio.com" },
-  { name: "Scalenut", pricing: "Paid", category: "Marketing", tag: "SEO", desc: "AI-driven content strategist.", url: "https://scalenut.com" },
-  { name: "Claude 3.5", pricing: "Freemium", category: "Productivity", tag: "Chat", desc: "Advanced logic and coding.", url: "https://claude.ai" },
-  { name: "DeepL", pricing: "Freemium", category: "Writing", tag: "Translate", desc: "Most accurate AI translation.", url: "https://deepl.com" },
-  { name: "Fireflies", pricing: "Freemium", category: "Productivity", tag: "Notes", desc: "Meeting assistant and recorder.", url: "https://fireflies.ai" }
-];
+    <main>
+        <!-- FREE / FREEMIUM GRID -->
+        <section class="directory-section">
+            <h2 class="section-title">Free & Freemium Tools <span class="item-count" id="freeCount">0</span></h2>
+            <div class="tools-grid" id="freeToolsGrid"></div>
+        </section>
 
+        <!-- PAID / PREMIUM GRID -->
+        <section class="directory-section">
+            <h2 class="section-title">Premium & Paid Tools <span class="item-count" id="paidCount">0</span></h2>
+            <div class="tools-grid" id="paidToolsGrid"></div>
+        </section>
+    </main>
+
+    <script>
+        // Complete 100 Curated AI Tools Dataset
+        const toolDataset = [
+            // --- MARKETING ---
+            { name: "Jasper AI", description: "Comprehensive marketing platform for writing blog posts, ad variants, and maintaining brand voice consistency.", pricing: "Paid", category: "Marketing", link: "https://www.jasper.ai" },
+            { name: "Copy.ai", description: "Automates multi-step marketing workflows and generates rapid brand positioning and email copy lines.", pricing: "Freemium", category: "Marketing", link: "https://www.copy.ai" },
+            { name: "HubSpot AI", description: "Embedded automation features for CRM, drafting promotional sequences, and scoring marketing leads.", pricing: "Freemium", category: "Marketing", link: "https://www.hubspot.com" },
+            { name: "ManyChat", description: "AI-driven chat system to automate direct messaging marketing across Instagram, WhatsApp, and Facebook.", pricing: "Freemium", category: "Marketing", link: "https://manychat.com" },
+            { name: "AdCreative.ai", description: "Generates high-converting graphic ad layouts and text options backed by performance algorithms.", pricing: "Paid", category: "Marketing", link: "https://www.adcreative.ai" },
+            { name: "Albert AI", description: "Autonomous digital advertising manager that optimizes campaigns across Google, Facebook, and Bing.", pricing: "Paid", category: "Marketing", link: "https://albert.ai" },
+            { name: "Mutiny", description: "No-code web optimization platform that personalizes website landing pages for specific marketing traffic.", pricing: "Paid", category: "Marketing", link: "https://www.mutinyhq.com" },
+            { name: "Smartly.io", description: "Scales paid advertising asset creation and automates budget allocation adjustments dynamically.", pricing: "Paid", category: "Marketing", link: "https://www.smartly.io" },
+            { name: "Brand24", description: "Social listening platform that crawls mentions and evaluates brand public sentiment trends using AI.", pricing: "Paid", category: "Marketing", link: "https://brand24.com" },
+            { name: "Feedly Leo", description: "AI research companion that filters news feeds to surface market developments and trend insights.", pricing: "Paid", category: "Marketing", link: "https://feedly.com" },
+            { name: "Predis.ai", description: "Generates complete social media posts with visuals, text copy, and hashtag recommendations from a text prompt.", pricing: "Freemium", category: "Marketing", link: "https://predis.ai" },
+            { name: "Ocoya", description: "All-in-one suite to schedule, analyze, and draft visual social media microcopy with built-in AI support.", pricing: "Paid", category: "Marketing", link: "https://www.ocoya.com" },
+            { name: "Lately", description: "Repurposes long podcasts or long-form documents into dozens of distinct social media punchlines.", pricing: "Paid", category: "Marketing", link: "https://www.lately.ai" },
+            { name: "Sprout Social AI", description: "Advanced customer feedback sentiment engine and automated reply assistant built for enterprise social teams.", pricing: "Paid", category: "Marketing", link: "https://sproutsocial.com" },
+            { name: "MarketMuse", description: "Audits entire websites to identify topical gaps and optimize marketing material structure for industry authority.", pricing: "Paid", category: "Marketing", link: "https://www.marketmuse.com" },
+            { name: "Phrasee", description: "Generates language options for transactional emails and SMS copy to drive user action.", pricing: "Paid", category: "Marketing", link: "https://phrasee.co" },
+            { name: " Seventh Sense", description: "Integrates with internal systems to predict optimal individual email delivery times for users.", pricing: "Paid", category: "Marketing", link: "https://www.theseventhsense.com" },
+
+            // --- SEO ---
+            { name: "Surfer SEO", description: "Live content structuring system that compares real-time writing against current organic search competitors.", pricing: "Paid", category: "SEO", link: "https://surferseo.com" },
+            { name: "Semrush AI", description: "Advanced search dashboard featuring keyword clustering, SERP forecasting, and article gap indicators.", pricing: "Paid", category: "SEO", link: "https://www.semrush.com" },
+            { name: "Ahrefs AI Tools", description: "Extracts data pointers to create blog frameworks, metadata variations, and intent discovery rules.", pricing: "Paid", category: "SEO", link: "https://ahrefs.com" },
+            { name: "Frase", description: "Researches Google competitors automatically to construct detailed, highly optimized long-form content briefs.", pricing: "Paid", category: "SEO", link: "https://www.frase.io" },
+            { name: "Clearscope", description: "Highly clear grading system analyzing text completeness to maximize organic visibility.", pricing: "Paid", category: "SEO", link: "https://www.clearscope.io" },
+            { name: "Perplexity AI", description: "Source-backed exploratory research tool that replaces traditional web search layout with compiled, cited reports.", pricing: "Freemium", category: "SEO", link: "https://www.perplexity.ai" },
+            { name: "QuillBot", description: "Paraphrasing platform that refines sentence structures, changes tone profiles, and checks text authenticity.", pricing: "Freemium", category: "SEO", link: "https://quillbot.com" },
+            { name: "InLinks", description: "Automates semantic internal linking structures and generates schema markup strings based on topic entities.", pricing: "Paid", category: "SEO", link: "https://inlinks.net" },
+            { name: "Scalenut", description: "Managed workflow platform assisting research from initial cluster selection down to finalized content generation.", pricing: "Paid", category: "SEO", link: "https://www.scalenut.com" },
+            { name: "WriterZen", description: "Discovers low-competition keywords and organizes search intent profiles into functional production tracks.", pricing: "Paid", category: "SEO", link: "https://writerzen.net" },
+            { name: "Outranking", description: "Data-driven workflow application focusing on structured meta details, factual integrity alignment, and alignment optimization.", pricing: "Paid", category: "SEO", link: "https://www.outranking.io" },
+            { name: "Alli AI", description: "Enables programmatic site optimization by deploying on-page recommendations without direct source modifications.", pricing: "Paid", category: "SEO", link: "https://www.alliai.com" },
+            { name: "WordLift", description: "Translates human-readable blogs into machine-optimized structured data layers using graph networks.", pricing: "Paid", category: "SEO", link: "https://wordlift.io" },
+            { name: "CanIRank", description: "SEO advisor providing core prescriptive guidance on specific actions required to beat top competitors.", pricing: "Freemium", category: "SEO", link: "https://www.canirank.com" },
+            { name: "Neuraltext", description: "Combines keyword discovery, search result evaluation, and layout writing into one continuous application.", pricing: "Paid", category: "SEO", link: "https://www.neuraltext.com" },
+            { name: "GrowthBar", description: "Chrome extension and dashboard that extracts formatting paths, word parameters, and metadata insights inside blogs.", pricing: "Paid", category: "SEO", link: "https://www.growthbarhq.com" },
+
+            // --- PRODUCTIVITY ---
+            { name: "ChatGPT", description: "Versatile, all-purpose assistant with reasoning capabilities for planning, calculations, and general drafting.", pricing: "Freemium", category: "Productivity", link: "https://chatgpt.com" },
+            { name: "Claude AI", description: "Deep thinking partner renowned for nuanced writing styles, code reviews, and long-context text analysis.", pricing: "Freemium", category: "Productivity", link: "https://claude.ai" },
+            { name: "Google Gemini", description: "Multimodal suite deeply connected into ecosystem files, sheets, and web information pathways.", pricing: "Freemium", category: "Productivity", link: "https://gemini.google.com" },
+            { name: "Notion AI", description: "Embedded workspace assistant that instantly extracts actions, refines layout structures, and drafts summaries.", pricing: "Paid", category: "Productivity", link: "https://www.notion.so" },
+            { name: "Grammarly", description: "Contextual assistant that reviews clarity settings, tone expressions, and document structural flaws.", pricing: "Freemium", category: "Productivity", link: "https://www.grammarly.com" },
+            { name: "NotebookLM", description: "Google research hub that organizes local documents into structured summaries, explanations, and audio overviews.", pricing: "Free", category: "Productivity", link: "https://notebooklm.google" },
+            { name: "Fathom AI", description: "Automated call assistant that records web meetings to output key action steps and conversation logs.", pricing: "Freemium", category: "Productivity", link: "https://fathom.video" },
+            { name: "Gamma App", description: "Transforms notes or text summaries into clean, beautifully formatted presentations, slide decks, and layouts.", pricing: "Freemium", category: "Productivity", link: "https://gamma.app" },
+            { name: "Fireflies.ai", description: "Crawls multiple internal communication apps to record audio, track individual speakers, and extract tasks.", pricing: "Freemium", category: "Productivity", link: "https://fireflies.ai" },
+            { name: "Otter.ai", description: "Real-time speech transcription utility built to handle business discussions, training sessions, and text outlines.", pricing: "Freemium", category: "Productivity", link: "https://otter.ai" },
+            { name: "Taskade", description: "Combines classic task tracking workflows with customized multi-agent networks to manage operations.", pricing: "Freemium", category: "Productivity", link: "https://www.taskade.com" },
+            { name: "SaneBox", description: "Monitors personal email inbox behavior to separate unimportant distributions into secondary folders.", pricing: "Paid", category: "Productivity", link: "https://www.sanebox.com" },
+            { name: "Mem.ai", description: "Self-organizing workspace note environment that links random items into connected thought paths automatically.", pricing: "Freemium", category: "Productivity", link: "https://mem.ai" },
+            { name: "Clockwise", description: "Optimizes personal and team scheduling parameters to create continuous stretches of uninterrupted focus time.", pricing: "Freemium", category: "Productivity", link: "https://www.getclockwise.com" },
+            { name: "Motion", description: "Intelligent calendar manager that automatically schedules, builds, and shifts daily work based on task priority.", pricing: "Paid", category: "Productivity", link: "https://www.usemotion.com" },
+            { name: "Xembly", description: "Virtual chief of staff utility handling calendar configurations, meeting feedback logs, and chore sequencing.", pricing: "Paid", category: "Productivity", link: "https://www.xembly.com" },
+            { name: "Rewind AI", description: "Local background recording client allowing users to search visual actions and audio segments they encountered.", pricing: "Freemium", category: "Productivity", link: "https://www.rewind.ai" },
+
+            // --- DESIGN ---
+            { name: "Midjourney", description: "Aesthetic prompt-driven visual generation environment built to yield highly conceptual and realistic imagery.", pricing: "Paid", category: "Design", link: "https://www.midjourney.com" },
+            { name: "Canva Magic Studio", description: "Accessible creator package offering easy text-to-image conversions, element replacement, and layout edits.", pricing: "Freemium", category: "Design", link: "https://www.canva.com" },
+            { name: "Figma Make", description: "Prompt-to-interface tool that translates design descriptions into structured prototypes and editable layouts.", pricing: "Paid", category: "Design", link: "https://www.figma.com" },
+            { name: "Ideogram", description: "Advanced text-to-image asset engine specialized in rendering precise, legible typography strings inside visuals.", pricing: "Freemium", category: "Design", link: "https://ideogram.ai" },
+            { name: "Adobe Firefly", description: "Commercially indemnified design ecosystem trained entirely on safe, licensed media assets for business use.", pricing: "Freemium", category: "Design", link: "https://www.adobe.com" },
+            { name: "Magnific AI", description: "Generative upscaler application that inserts ultra-realistic micro-texture and clarity enhancements during resolution changes.", pricing: "Paid", category: "Design", link: "https://magnific.ai" },
+            { name: "Looka", description: "Interactive branding platform that outputs customized corporate logo variations, business cards, and typography packages.", pricing: "Paid", category: "Design", link: "https://looka.com" },
+            { name: "Photoroom", description: "Rapid background separation and studio lighting tool designed for e-commerce catalog presentation layouts.", pricing: "Freemium", category: "Design", link: "https://www.photoroom.com" },
+            { name: "Uizard", description: "Converts rough hand-drawn paper concepts into full, click-functional app interfaces within moments.", pricing: "Freemium", category: "Design", link: "https://uizard.io" },
+            { name: "Vectary", description: "No-code 3D scene configurator that simplifies product asset mockup placement and deployment.", pricing: "Freemium", category: "Design", link: "https://www.vectary.com" },
+            { name: "Krea AI", description: "Real-time canvas layout tool that instantly translates crude geometry sketches into polished creative concepts.", pricing: "Freemium", category: "Design", link: "https://www.krea.ai" },
+            { name: "Khroma", description: "Personalized search tool that identifies beautiful, harmonious color palettes based on user trait preferences.", pricing: "Free", category: "Design", link: "https://www.khroma.co" },
+            { name: "Remove.bg", description: "Single-purpose, instant object background removal utility powered by advanced segmentation rules.", pricing: "Freemium", category: "Design", link: "https://www.remove.bg" },
+            { name: "Leonardo.ai", description: "Production asset platform packed with fine control weights, style persistence variables, and design nodes.", pricing: "Freemium", category: "Design", link: "https://leonardo.ai" },
+            { name: "Flair.ai", description: "Drag-and-drop merchandise scene builder that constructs editorial product background environments.", pricing: "Freemium", category: "Design", link: "https://flair.ai" },
+            { name: "Recraft AI", description: "Vector generation studio allowing designers to build infinitely scalable icons, layouts, and brand illustrations.", pricing: "Freemium", category: "Design", link: "https://www.recraft.ai" },
+
+            // --- VIDEO & AUDIO ---
+            { name: "ElevenLabs", description: "Industry-standard audio platform for synthetic vocal cloning, realistic sound effects, and multilingual speech.", pricing: "Freemium", category: "Video", link: "https://elevenlabs.io" },
+            { name: "Google Veo", description: "Advanced cinema video tool that executes continuous camera trajectories, prompt tracking, and clear textures.", pricing: "Freemium", category: "Video", link: "https://veo.google" },
+            { name: "Runway Gen-3 Alpha", description: "Creative workspace that generates professional visual compositions, structural shifts, and scene loops.", pricing: "Freemium", category: "Video", link: "https://runwayml.com" },
+            { name: "Synthesia", description: "Enterprise presentation platform that translates standard technical scripts into professional virtual human presentations.", pricing: "Paid", category: "Video", link: "https://www.synthesia.io" },
+            { name: "HeyGen", description: "Hyper-realistic virtual presenter setup designed for rapid local adjustments and marketing outreach scripts.", pricing: "Freemium", category: "Video", link: "https://www.heygen.com" },
+            { name: "Descript", description: "Interactive audio and video workspace that changes media tracks by editing corresponding transcription words.", pricing: "Freemium", category: "Video", link: "https://www.descript.com" },
+            { name: "OpusClip", description: "Extracts short, high-engagement viral clips from long video material with automated subtitle generation.", pricing: "Freemium", category: "Video", link: "https://www.opus.pro" },
+            { name: "Luma Dream Machine", description: "Rapid animation physics workspace that simulates realistic motion, lighting variations, and structural continuity.", pricing: "Freemium", category: "Video", link: "https://lumalabs.ai" },
+            { name: "LTX Studio", description: "Multi-shot scene director tool built to coordinate script timelines, character tracking, and layout framing.", pricing: "Freemium", category: "Video", link: "https://ltx.io" },
+            { name: "Invideo AI", description: "Transforms basic script statements into structured video sequences complete with narration and visuals.", pricing: "Freemium", category: "Video", link: "https://invideo.io" },
+            { name: "Sora (OpenAI)", description: "Premium, highly realistic simulation environment generating cinematic continuity blocks up to a full minute long.", pricing: "Paid", category: "Video", link: "https://openai.com/sora" },
+            { name: "Pictory", description: "Crawls text-heavy business whitepapers and documentation to build short, shareable informational social highlights.", pricing: "Paid", category: "Video", link: "https://pictory.ai" },
+            { name: "Veed.io", description: "Browser editor providing simple translation features, subtitles formatting, and audio cleaning modules.", pricing: "Freemium", category: "Video", link: "https://www.veed.io" },
+            { name: "Kling AI", description: "High-fidelity cinematic generation system capable of building sweeping scenic views and natural interactions.", pricing: "Freemium", category: "Video", link: "https://klingai.com" },
+            { name: "Higgsfield", description: "Consolidates multiple top generation layouts into a single, unified workflow pipeline.", pricing: "Paid", category: "Video", link: "https://higgsfield.ai" },
+            { name: "PlayHT", description: "Massive library of realistic voices used for audiobooks, narration tracks, and dynamic speech deployment.", pricing: "Freemium", category: "Video", link: "https://play.ht" },
+            { name: "Suno AI", description: "Generates complete musical arrangements, vocal performances, and rhythmic tracks from a raw descriptive prompt.", pricing: "Freemium", category: "Video", link: "https://suno.com" },
+
+            // --- CODING ---
+            { name: "Cursor", description: "AI-native code editor fork of VS Code featuring complete workspace refactoring, inline questions, and chat.", pricing: "Freemium", category: "Coding", link: "https://www.cursor.com" },
+            { name: "GitHub Copilot", description: "Ubiquitous development companion providing multi-line code completions and context logic insights.", pricing: "Freemium", category: "Coding", link: "https://github.com/features/copilot" },
+            { name: "Claude Code", description: "Advanced terminal-based interface that scans codebases, runs verification checks, and fixes software bugs.", pricing: "Paid", category: "Coding", link: "https://claude.ai" },
+            { name: "Lovable", description: "App builder that generates complete, production-ready React infrastructure directly from simple text requirements.", pricing: "Paid", category: "Coding", link: "https://lovable.dev" },
+            { name: "Windsurf", description: "Predictive development system pairing multi-file code editing mechanics with accessible free tiers.", pricing: "Freemium", category: "Coding", link: "https://codeium.com/windsurf" },
+            { name: "v0 by Vercel", description: "Generates clean, production-ready Next.js frontend user components from text or layout snapshots.", pricing: "Freemium", category: "Coding", link: "https://v0.dev" },
+            { name: "Bolt.new", description: "Instant in-browser environment setup that builds, hosts, and monitors responsive web applications.", pricing: "Freemium", category: "Coding", link: "https://bolt.new" },
+            { name: "Replit Agent", description: "Autonomous full-stack development assistant that connects databases, sets up authentication, and deploys directly.", pricing: "Paid", category: "Coding", link: "https://replit.com" },
+            { name: "DataLab", description: "Interactive data science platform that translates plain language queries into SQL strings and Python graphics.", pricing: "Freemium", category: "Coding", link: "https://www.datacamp.com/datalab" },
+            { name: "Codeium", description: "Blazing fast auto-completion environment and search companion supporting dozens of software languages.", pricing: "Freemium", category: "Coding", link: "https://codeium.com" },
+            { name: "Tabnine", description: "Private, secure development assistant focusing on strict organizational compliance and protected source structures.", pricing: "Paid", category: "Coding", link: "https://www.tabnine.com" },
+            { name: "Amazon Q Developer", description: "AWS cloud optimization workspace that provides suggestions for software updates and infrastructure management.", pricing: "Freemium", category: "Coding", link: "https://aws.amazon.com/q/developer" },
+            { name: "Sourcery", description: "Automated refactoring tool that scans open code lines to suggest clean configurations and reduce complexity.", pricing: "Freemium", category: "Coding", link: "https://sourcery.ai" },
+            { name: "Blackbox AI", description: "Specialized engineering companion optimized for rapid repository search, code extraction, and indexing.", pricing: "Freemium", category: "Coding", link: "https://www.blackbox.ai" },
+            { name: "MutableAI", description: "Accelerates enterprise code documentation pipelines and builds comprehensive wiki references automatically.", pricing: "Paid", category: "Coding", link: "https://mutable.ai" },
+            { name: "CodiumAI", description: "Analyzes software execution pathways to generate comprehensive unit tests and catch code edge cases.", pricing: "Freemium", category: "Coding", link: "https://www.codium.ai" }
+        ];
+
+        // Readable categories mapping
         const readableCategories = {
             "all": "🌐 Show All Tools",
-            "marketing": "📈 Marketing & Social Media",
-            "seo": "🔍 SEO & Copywriting",
-            "productivity": "⚡ Productivity & Office"
+            "Marketing": "📈 Marketing",
+            "SEO": "🔍 SEO & Copy",
+            "Productivity": "⚡ Productivity",
+            "Design": "🎨 Design",
+            "Video": "🎬 Video & Audio",
+            "Coding": "💻 Coding & Dev"
         };
 
         let activeCategoryFilter = "all";
 
-        // Generate Sidebar Navigation Lists
-        function initSidebarMenu() {
-            const container = document.getElementById('sidebar-categories');
-            container.innerHTML = '';
+        // Initialize Filter Buttons
+        function initFilters() {
+            const container = document.getElementById("filterContainer");
+            container.innerHTML = "";
             
             Object.keys(readableCategories).forEach(key => {
-                const navLink = document.createElement('button');
-                navLink.innerText = readableCategories[key];
-                navLink.className = `w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium transition flex justify-between items-center cursor-pointer ${
-                    key === activeCategoryFilter 
-                    ? 'bg-indigo-50 text-indigo-700 font-semibold' 
-                    : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
-                }`;
-                navLink.onclick = () => {
+                const btn = document.createElement("button");
+                btn.className = `filter-btn ${key === activeCategoryFilter ? 'active' : ''}`;
+                btn.innerText = readableCategories[key];
+                btn.addEventListener("click", () => {
+                    document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+                    btn.classList.add("active");
                     activeCategoryFilter = key;
-                    initSidebarMenu(); // Refresh visual active states
-                    filterDirectoryData();
-                };
-                container.appendChild(navLink);
+                    renderDirectory();
+                });
+                container.appendChild(btn);
             });
         }
 
-        // Core Render Engine
-        function filterDirectoryData() {
-            const searchStr = document.getElementById('search-input').value.toLowerCase();
-            const freeContainer = document.getElementById('free-row-grid');
-            const paidContainer = document.getElementById('free-row-grid'); // Fixed reference tracking row structures
-            
-            const targetFreeGrid = document.getElementById('free-row-grid');
-            const targetPaidGrid = document.getElementById('paid-row-grid');
+        // Render Directory Lists
+        function renderDirectory() {
+            const searchQuery = document.getElementById("searchBar").value.toLowerCase();
+            const freeGrid = document.getElementById("freeToolsGrid");
+            const paidGrid = document.getElementById("paidToolsGrid");
 
-            targetFreeGrid.innerHTML = '';
-            targetPaidGrid.innerHTML = '';
+            // Clear previous elements
+            freeGrid.innerHTML = "";
+            paidGrid.innerHTML = "";
 
-            let freeCounter = 0;
-            let paidCounter = 0;
+            let freeCount = 0;
+            let paidCount = 0;
 
             toolDataset.forEach(tool => {
-                // Match search parameters
-                const matchesSearch = tool.name.toLowerCase().includes(searchStr) || tool.desc.toLowerCase().includes(searchStr) || tool.tag.toLowerCase().includes(searchStr);
-                // Match category parameters
+                // Category validation check
                 const matchesCategory = activeCategoryFilter === "all" || tool.category === activeCategoryFilter;
+                
+                // Search validation check
+                const matchesSearch = tool.name.toLowerCase().includes(searchQuery) || 
+                                      tool.description.toLowerCase().includes(searchQuery) ||
+                                      tool.category.toLowerCase().includes(searchQuery);
 
-                if (matchesSearch && matchesCategory) {
-                    const cardElement = document.createElement('div');
-                    cardElement.className = "bg-white border border-slate-100 rounded-xl p-4 shadow-xs hover:shadow-md hover:border-slate-200 transition duration-200 flex flex-col justify-between space-y-3";
-                    cardElement.innerHTML = `
+                if (matchesCategory && matchesSearch) {
+                    // Create tool card element
+                    const card = document.createElement("div");
+                    card.className = "tool-card";
+                    
+                    const isPremium = tool.pricing.toLowerCase() === 'paid';
+                    const tagClass = isPremium ? 'tag-paid' : 'tag-free';
+                    const displayPricing = isPremium ? 'Premium' : tool.pricing;
+
+                    card.innerHTML = `
                         <div>
-                            <div class="flex justify-between items-start">
-                                <h3 class="font-bold text-slate-900 tracking-tight text-base">${tool.name}</h3>
-                                <span class="bg-slate-100 text-slate-600 text-[11px] font-medium px-2 py-0.5 rounded-md border border-slate-200/60">${tool.tag}</span>
+                            <div class="tool-header">
+                                <div class="tool-name">${tool.name}</div>
+                                <span class="tool-tag ${tagClass}">${displayPricing}</span>
                             </div>
-                            <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">${tool.desc}</p>
+                            <p class="tool-desc">${tool.description}</p>
                         </div>
-                        <div class="pt-2 flex items-center justify-between border-t border-slate-50">
-                            <span class="text-[10px] font-bold uppercase tracking-wider ${tool.pricing === 'free' ? 'text-emerald-600' : 'text-indigo-600'}">${tool.pricing}</span>
-                            <a href="${tool.url}" target="_blank" class="text-xs font-semibold text-indigo-600 hover:text-indigo-800 transition">Open Tool ↗</a>
+                        <div class="tool-footer">
+                            <span class="tool-cat">${tool.category}</span>
+                            <a href="${tool.link}" target="_blank" class="tool-link">Visit Website ↗</a>
                         </div>
                     `;
 
-                    if (tool.pricing === 'free') {
-                        targetFreeGrid.appendChild(cardElement);
-                        freeCounter++;
+                    // Route card to correct layout section
+                    if (isPremium) {
+                        paidGrid.appendChild(card);
+                        paidCount++;
                     } else {
-                        targetPaidGrid.appendChild(cardElement);
-                        paidCounter++;
+                        freeGrid.appendChild(card);
+                        freeCount++;
                     }
                 }
             });
 
-            // Update badge metric totals
-            document.getElementById('free-count').innerText = `${freeCounter} software items`;
-            document.getElementById('paid-count').innerText = `${paidCounter} software items`;
+            // Handle empty results display
+            if (freeCount === 0) {
+                freeGrid.innerHTML = `<div class="no-results">No free or freemium tools match your current search criteria.</div>`;
+            }
+            if (paidCount === 0) {
+                paidGrid.innerHTML = `<div class="no-results">No premium tools match your current search criteria.</div>`;
+            }
 
-            // Display placeholder message if arrays evaluate empty
-            if (freeCounter === 0) targetFreeGrid.innerHTML = `<p class="text-slate-400 text-xs py-2 px-1">No matching free tools inside this database configuration.</p>`;
-            if (paidCounter === 0) targetPaidGrid.innerHTML = `<p class="text-slate-400 text-xs py-2 px-1">No matching paid tools inside this database configuration.</p>`;
+            // Update item counters layout values
+            document.getElementById("freeCount").innerText = freeCount;
+            document.getElementById("paidCount").innerText = paidCount;
         }
 
-        // Initialize App Operations
-        initSidebarMenu();
-        filterDirectoryData();
+        // Add Input Listener for Real-time Search functionality
+        document.getElementById("searchBar").addEventListener("input", renderDirectory);
+
+        // Run Initial Setup Loops
+        initFilters();
+        renderDirectory();
     </script>
 </body>
-  </html>
-  
+</html>
