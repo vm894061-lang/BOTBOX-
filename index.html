@@ -114,20 +114,70 @@
     <script>
         // Database structured clearly for quick updates
         const toolDataset = [
-            { name: "Buffer", pricing: "free", category: "marketing", tag: "Social Media", desc: "Schedule posts automatically to multiple channels using their continuous free package layers.", url: "#" },
-            { name: "Publer", pricing: "free", category: "marketing", tag: "Automation", desc: "Visual automation dashboard allowing clean curation workflows without subscription friction.", url: "#" },
-            { name: "Perplexity AI", pricing: "free", category: "seo", tag: "Research AI", desc: "Provides conversational intelligence connected to real-time search data arrays instantly.", url: "#" },
-            { name: "AnswerThePublic", pricing: "free", category: "seo", tag: "Keywords", desc: "Maps semantic query clusters tracking user search habits across major engine structures.", url: "#" },
-            { name: "ChatGPT", pricing: "free", category: "productivity", tag: "Chatbot", desc: "Universal AI text companion running optimized models for general summarization updates.", url: "#" },
-            { name: "Goblin.tools", pricing: "free", category: "productivity", tag: "Task Manager", desc: "Breaks comprehensive daunting operations into small digestible bullet sequences.", url: "#" },
-            
-            { name: "Jasper AI", pricing: "paid", category: "marketing", tag: "Copywriting", desc: "Enterprise engine structured to process brand scripts and product announcements at scale.", url: "#" },
-            { name: "AdCreative.ai", pricing: "paid", category: "marketing", tag: "Ad Generator", desc: "Generates banner ads matching specific data-backed conversion frameworks.", url: "#" },
-            { name: "Surfer SEO", pricing: "paid", category: "seo", tag: "SEO Ranker", desc: "Processes top competitive outlines to structure a ready-to-publish content plan.", url: "#" },
-            { name: "Scalenut", pricing: "paid", category: "seo", tag: "Content Hub", desc: "Generates entire search engine optimized workflows from keyword roots directly.", url: "#" },
-            { name: "Motion", pricing: "paid", category: "productivity", tag: "AI Calendar", desc: "Automatically recalculates priorities dynamically when your workspace updates.", url: "#" },
-            { name: "Granola AI", pricing: "paid", category: "productivity", tag: "Meeting Note", desc: "Transcribes audio and maps strategic meeting objectives cleanly without background noise.", url: "#" }
-        ];
+            { const toolDataset = [
+  // --- Productivity ---
+  { name: "ChatGPT", pricing: "Freemium", category: "Productivity", tag: "Chat", desc: "Leader in conversational AI and research.", url: "https://chatgpt.com" },
+  { name: "Claude", pricing: "Freemium", category: "Productivity", tag: "Writing", desc: "Strong reasoning and coding assistant.", url: "https://claude.ai" },
+  { name: "Gemini", pricing: "Freemium", category: "Productivity", tag: "Google", desc: "Multimodal AI integrated with Google.", url: "https://gemini.google.com" },
+  { name: "Perplexity", pricing: "Free", category: "Productivity", tag: "Search", desc: "AI-powered conversational search engine.", url: "https://perplexity.ai" },
+  { name: "Notion AI", pricing: "Paid", category: "Productivity", tag: "Notes", desc: "AI-enhanced workspace and notes.", url: "https://notion.so" },
+  { name: "Taskade", pricing: "Freemium", category: "Productivity", tag: "Agents", desc: "AI-driven project management.", url: "https://taskade.com" },
+  { name: "Otter.ai", pricing: "Freemium", category: "Productivity", tag: "Meeting", desc: "Real-time meeting transcription.", url: "https://otter.ai" },
+  { name: "Fireflies.ai", pricing: "Freemium", category: "Productivity", tag: "Meeting", desc: "AI meeting note taker.", url: "https://fireflies.ai" },
+  
+  // --- Design & Image ---
+  { name: "Midjourney", pricing: "Paid", category: "Design", tag: "Art", desc: "High-quality image generation.", url: "https://midjourney.com" },
+  { name: "Canva", pricing: "Freemium", category: "Design", tag: "Graphics", desc: "All-in-one design and AI editing.", url: "https://canva.com" },
+  { name: "Adobe Firefly", pricing: "Paid", category: "Design", tag: "Photo", desc: "Generative fill and image tools.", url: "https://firefly.adobe.com" },
+  { name: "Looka", pricing: "Paid", category: "Design", tag: "Logo", desc: "AI-powered logo generation.", url: "https://looka.com" },
+  { name: "Ideogram", pricing: "Freemium", category: "Design", tag: "Art", desc: "Great text rendering in images.", url: "https://ideogram.ai" },
+  { name: "Framer AI", pricing: "Freemium", category: "Design", tag: "Web", desc: "Build sites from text prompts.", url: "https://framer.com" },
+  { name: "Galileo AI", pricing: "Paid", category: "Design", tag: "UI", desc: "Generate UI designs from text.", url: "https://usegalileo.ai" },
+  { name: "Uizard", pricing: "Freemium", category: "Design", tag: "UI", desc: "AI-powered mockup design.", url: "https://uizard.io" },
+  
+  // --- Video & Audio ---
+  { name: "Runway Gen-3", pricing: "Paid", category: "Video", tag: "Motion", desc: "High-fidelity video generation.", url: "https://runwayml.com" },
+  { name: "Luma Dream Machine", pricing: "Freemium", category: "Video", tag: "Motion", desc: "Realistic 3D motion from photos.", url: "https://lumalabs.ai" },
+  { name: "ElevenLabs", pricing: "Freemium", category: "Video", tag: "Voice", desc: "Industry-leading AI voice cloning.", url: "https://elevenlabs.io" },
+  { name: "Descript", pricing: "Freemium", category: "Video", tag: "Editing", desc: "Edit video by editing text.", url: "https://descript.com" },
+  { name: "Synthesia", pricing: "Paid", category: "Video", tag: "Avatar", desc: "AI avatars for presentations.", url: "https://synthesia.io" },
+  { name: "Opus Clip", pricing: "Freemium", category: "Video", tag: "Editing", desc: "Turn long videos into shorts.", url: "https://opus.pro" },
+  { name: "Pictory", pricing: "Paid", category: "Video", tag: "Marketing", desc: "Script to video automation.", url: "https://pictory.ai" },
+  
+  // --- Marketing & SEO ---
+  { name: "Surfer SEO", pricing: "Paid", category: "Marketing", tag: "SEO", desc: "Analyze pages for ranking.", url: "https://surferseo.com" },
+  { name: "Jasper AI", pricing: "Paid", category: "Marketing", tag: "Writing", desc: "Content generator for brands.", url: "https://jasper.ai" },
+  { name: "Copy.ai", pricing: "Freemium", category: "Marketing", tag: "Writing", desc: "Marketing copy assistant.", url: "https://copy.ai" },
+  { name: "Writesonic", pricing: "Freemium", category: "Marketing", tag: "SEO", desc: "Article and ad writer.", url: "https://writesonic.com" },
+  { name: "Brand24", pricing: "Paid", category: "Marketing", tag: "Social", desc: "AI social sentiment analysis.", url: "https://brand24.com" },
+  { name: "SocialBee", pricing: "Paid", category: "Marketing", tag: "Social", desc: "AI social media management.", url: "https://socialbee.io" },
+  { name: "HubSpot AI", pricing: "Freemium", category: "Marketing", tag: "CRM", desc: "Automation for sales and marketing.", url: "https://hubspot.com" },
+  
+  // --- Coding & Dev ---
+  { name: "Cursor", pricing: "Freemium", category: "Coding", tag: "Editor", desc: "AI code editor for big projects.", url: "https://cursor.sh" },
+  { name: "GitHub Copilot", pricing: "Paid", category: "Coding", tag: "Coding", desc: "The standard AI coding assistant.", url: "https://github.com/features/copilot" },
+  { name: "Codeium", pricing: "Free", category: "Coding", tag: "Coding", desc: "Fast and free coding extension.", url: "https://codeium.com" },
+  { name: "Blackbox AI", pricing: "Freemium", category: "Coding", tag: "Coding", desc: "Code generation and search.", url: "https://blackbox.ai" },
+  { name: "Replit", pricing: "Freemium", category: "Coding", tag: "Editor", desc: "Online IDE with AI support.", url: "https://replit.com" },
+  { name: "Snyk", pricing: "Freemium", category: "Coding", tag: "Security", desc: "AI-powered code vulnerability scan.", url: "https://snyk.io" },
+  
+  // --- Add more rows below this point ---
+  { name: "Gamma", pricing: "Freemium", category: "Productivity", tag: "Slide", desc: "Create slides from text.", url: "https://gamma.app" },
+  { name: "Perplexity", pricing: "Free", category: "Search", tag: "Research", desc: "Search with AI sources.", url: "https://perplexity.ai" },
+  { name: "Grammarly", pricing: "Freemium", category: "Writing", tag: "Editor", desc: "AI grammar and style checker.", url: "https://grammarly.com" },
+  { name: "Wordtune", pricing: "Freemium", category: "Writing", tag: "Editor", desc: "Rewrite and refine sentences.", url: "https://wordtune.com" },
+  { name: "Zapier", pricing: "Freemium", category: "Workflow", tag: "Automation", desc: "Connect apps with AI workflows.", url: "https://zapier.com" },
+  { name: "Buffer", pricing: "Freemium", category: "Marketing", tag: "Social", desc: "AI scheduling for social.", url: "https://buffer.com" },
+  { name: "Beautiful.ai", pricing: "Paid", category: "Design", tag: "Slide", desc: "Smart presentation design.", url: "https://beautiful.ai" },
+  { name: "Topaz Photo", pricing: "Paid", category: "Design", tag: "Photo", desc: "Upscale and sharpen photos.", url: "https://topazlabs.com" },
+  { name: "Stable Diffusion", pricing: "Free", category: "Design", tag: "Art", desc: "Open-source image generator.", url: "https://stability.ai" },
+  { name: "Tidio", pricing: "Freemium", category: "Marketing", tag: "Chatbot", desc: "AI chatbot for support.", url: "https://tidio.com" },
+  { name: "Scalenut", pricing: "Paid", category: "Marketing", tag: "SEO", desc: "AI-driven content strategist.", url: "https://scalenut.com" },
+  { name: "Claude 3.5", pricing: "Freemium", category: "Productivity", tag: "Chat", desc: "Advanced logic and coding.", url: "https://claude.ai" },
+  { name: "DeepL", pricing: "Freemium", category: "Writing", tag: "Translate", desc: "Most accurate AI translation.", url: "https://deepl.com" },
+  { name: "Fireflies", pricing: "Freemium", category: "Productivity", tag: "Notes", desc: "Meeting assistant and recorder.", url: "https://fireflies.ai" }
+];
+
 
         const readableCategories = {
             "all": "🌐 Show All Tools",
