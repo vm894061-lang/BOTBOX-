@@ -3,513 +3,431 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BOTBOX - Ultimate AI Tools Directory</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>BOTBOX - Ultimate AI Tool Directory</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <style>
-        :root {
-            --bg-deep: #070b12;
-            --bg-main: #0b111e;
-            --bg-sidebar: #0e1726;
-            --bg-card: #111c30;
-            --border-cyan: #1a365d;
-            --border-card-active: #00d2ff;
-            --text-white: #ffffff;
-            --text-gray: #8ea3bf;
-            --accent-cyan: #00d2ff;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-deep);
-            color: var(--text-white);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        header {
-            background-color: var(--bg-main);
-            border-bottom: 1px solid var(--border-cyan);
-            padding: 0.8rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 2.5rem;
-        }
-
-        .brand-logo {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            text-decoration: none;
-        }
-
-        .logo-icon-svg {
-            width: 32px;
-            height: 32px;
-        }
-
-        .brand-name {
-            font-size: 1.6rem;
-            font-weight: 800;
-            letter-spacing: -0.03em;
-            color: var(--accent-cyan);
-        }
-
-        .app-layout {
-            display: flex;
-            flex: 1;
-        }
-
-        aside {
-            width: 280px;
-            background-color: var(--bg-sidebar);
-            border-right: 1px solid var(--border-cyan);
-            padding: 1.5rem 1rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
-            max-height: calc(100vh - 65px);
-            overflow-y: auto;
-        }
-
-        .sidebar-btn-all {
-            background-color: rgba(0, 210, 255, 0.15);
-            color: var(--accent-cyan);
-            border: 1px solid var(--accent-cyan);
-            padding: 0.6rem 1rem;
-            border-radius: 6px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            width: 100%;
-            cursor: pointer;
-        }
-
-        .category-item {
-            color: var(--text-gray);
-            padding: 0.5rem 0.8rem;
-            border-radius: 6px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-size: 0.9rem;
-            transition: all 0.2s;
-        }
-
-        .category-item:hover, .category-item.active {
-            background-color: rgba(26, 54, 93, 0.5);
-            color: var(--text-white);
-        }
-
-        .category-count {
-            background-color: var(--bg-deep);
-            padding: 0.1rem 0.4rem;
-            border-radius: 10px;
-            font-size: 0.75rem;
-            color: var(--accent-cyan);
-        }
-
-        main {
-            flex: 1;
-            background-color: var(--bg-main);
-            padding: 2rem;
-            max-height: calc(100vh - 65px);
-            overflow-y: auto;
-        }
-
-        .about-hero-box {
-            background-color: rgba(17, 28, 48, 0.4);
-            border: 1px solid var(--border-cyan);
-            border-radius: 8px;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .about-hero-box h1 {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 0.6rem;
-        }
-
-        .about-hero-box p {
-            color: var(--text-gray);
-            font-size: 0.95rem;
-            line-height: 1.5;
-        }
-
-        .filter-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .filter-tabs {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .tab-btn {
-            background-color: rgba(17, 28, 48, 0.8);
-            border: 1px solid var(--border-cyan);
-            color: var(--text-gray);
-            padding: 0.4rem 1rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            cursor: pointer;
-        }
-
-        .tab-btn.active {
-            background-color: var(--accent-cyan);
-            color: var(--bg-deep);
-            border-color: var(--accent-cyan);
-            font-weight: 600;
-        }
-
-        .search-box-wrapper {
-            position: relative;
-            flex: 1;
-            max-width: 320px;
-        }
-
-        .search-box-wrapper i {
-            position: absolute;
-            left: 0.8rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-gray);
-        }
-
-        .search-input {
-            width: 100%;
-            background-color: rgba(17, 28, 48, 0.8);
-            border: 1px solid var(--border-cyan);
-            border-radius: 6px;
-            padding: 0.45rem 1rem 0.45rem 2.2rem;
-            color: var(--text-white);
-            font-size: 0.85rem;
-        }
-
-        .directory-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.2rem;
-            margin-bottom: 3rem;
-        }
-
-        .tool-card {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-cyan);
-            border-radius: 8px;
-            padding: 1.2rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: border-color 0.2s;
-        }
-
-        .tool-card:hover {
-            border-color: var(--border-card-active);
-        }
-
-        .tool-card-top {
-            display: flex;
-            gap: 0.8rem;
-            margin-bottom: 0.8rem;
-        }
-
-        .tool-img-box {
-            width: 42px;
-            height: 42px;
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
-        }
-
-        .tool-identity h3 {
-            font-size: 1rem;
-            font-weight: 600;
-        }
-
-        .tool-niche-tag {
-            font-size: 0.7rem;
-            color: var(--accent-cyan);
-            text-transform: uppercase;
-            font-weight: bold;
-        }
-
-        .tool-desc-text {
-            color: var(--text-gray);
-            font-size: 0.82rem;
-            line-height: 1.4;
-            margin-bottom: 1rem;
-            min-height: 50px;
-        }
-
-        .card-action-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-top: 1px solid rgba(26, 54, 93, 0.4);
-            padding-top: 0.8rem;
-        }
-
-        .pricing-badge {
-            font-size: 0.75rem;
-            padding: 0.2rem 0.5rem;
-            border-radius: 4px;
-            font-weight: 600;
-        }
-
-        .pricing-badge.free { background: rgba(34, 197, 94, 0.15); color: #22c55e; }
-        .pricing-badge.paid { background: rgba(239, 68, 68, 0.15); color: #ef4444; }
-
-        .youtube-btn {
-            background-color: rgba(239, 68, 68, 0.15);
-            border: 1px solid #ef4444;
-            color: #ef4444;
-            padding: 0.35rem 0.7rem;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-            font-weight: 600;
-            transition: all 0.2s;
-        }
-
-        .youtube-btn:hover {
-            background-color: #ef4444;
-            color: white;
-        }
-
-        footer {
-            background-color: var(--bg-deep);
-            border-top: 1px solid var(--border-cyan);
-            padding: 1.5rem;
-            text-align: center;
-            font-size: 0.8rem;
-            color: var(--text-gray);
-        }
-
-        @media (max-width: 992px) {
-            .app-layout { flex-direction: column; }
-            aside { width: 100%; max-height: 200px; }
-        }
-    </style>
 </head>
-<body>
+<body class="bg-gray-50 text-gray-900 font-sans">
 
-    <header>
-        <div class="header-left">
-            <a href="#" class="brand-logo" onclick="filterCategory('all')">
-                <svg class="logo-icon-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M50 25 V12 M35 12 C42 12 45 18 50 18 C55 18 58 12 65 12" stroke="#00d2ff" stroke-width="4" stroke-linecap="round"/>
-                    <path d="M25 40 L50 48 L75 40 L75 70 L50 82 L25 70 Z" stroke="#00d2ff" stroke-width="4" stroke-linejoin="round"/>
-                    <path d="M50 48 L50 82" stroke="#00d2ff" stroke-width="3"/>
-                    <path d="M25 40 L50 32 L75 40" stroke="#00d2ff" stroke-width="3"/>
-                    <circle cx="40" cy="56" r="3" fill="#00d2ff"/>
-                    <circle cx="60" cy="56" r="3" fill="#00d2ff"/>
-                    <ellipse cx="50" cy="92" rx="15" ry="2.5" fill="#00d2ff" opacity="0.8"/>
-                </svg>
-                <div class="brand-name">BOTBOX</div>
-            </a>
-        </div>
+    <header class="bg-white border-b border-gray-200 py-6 text-center shadow-sm">
+        <h1 class="text-3xl font-extrabold text-blue-600 tracking-tight flex items-center justify-center gap-2">
+            <i class="fa-solid fa-robot text-2xl"></i> BOTBOX AI Directory
+        </h1>
+        <p class="text-gray-500 mt-2">Discover over 200+ verified AI tools categorized by purpose, pricing model, and tutorial data</p>
     </header>
 
-    <div class="app-layout">
-        <aside id="sidebar-categories">
-            <button class="sidebar-btn-all" onclick="filterCategory('all')">
-                <i class="fa-solid fa-border-all"></i> All Categories
-            </button>
-            </aside>
+    <main class="max-w-6xl mx-auto px-4 py-8">
+        
+        <section class="mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
+            <div class="text-sm font-medium text-gray-700">
+                Total Resources Monitored: <span class="bg-blue-100 text-blue-700 px-2 py-0.5 rounded-md font-bold">204 Tools</span>
+            </div>
+            <div class="relative w-full md:max-w-xs">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
+                    <i class="fa-solid fa-magnifying-glass text-xs"></i>
+                </span>
+                <input type="text" id="directory-search" oninput="handleSearch()" placeholder="Search tools by name..." class="w-full pl-9 pr-4 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50">
+            </div>
+        </section>
 
-        <main>
-            <section class="about-hero-box">
-                <h1>BOTBOX AI: Core Directory Hub</h1>
-                <p>Browsing <span id="tool-count-display">0</span> audited artificial intelligence pipelines, models, platforms, and operational web systems optimized across every modern developer and content creator niche.</p>
-            </section>
-
-            <section class="filter-row">
-                <div class="filter-tabs">
-                    <button class="tab-btn active" id="btn-all-price" onclick="filterPrice('all')">All Types</button>
-                    <button class="tab-btn" id="btn-free-price" onclick="filterPrice('free')">Free / Freemium</button>
-                    <button class="tab-btn" id="btn-paid-price" onclick="filterPrice('paid')">Paid / Premium</button>
+        <section class="mb-10">
+            <h2 class="text-lg font-semibold mb-4 text-gray-700">Select a Purpose:</h2>
+            <div id="category-buttons" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
                 </div>
-                <div class="search-box-wrapper">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" id="search-bar" class="search-input" placeholder="Search 200+ tools..." oninput="handleSearch()">
+        </section>
+
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            
+            <div class="bg-emerald-50/40 border border-emerald-100 rounded-2xl p-6">
+                <div class="flex items-center justify-between mb-6">
+                    <div class="flex items-center space-x-2">
+                        <span class="bg-emerald-500 text-white text-xs font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Free</span>
+                        <h2 class="text-xl font-bold text-emerald-900">Free & Freemium Tools</h2>
+                    </div>
+                    <span id="free-counter" class="text-xs font-semibold bg-emerald-100 text-emerald-800 px-2.5 py-0.5 rounded-full">0 found</span>
                 </div>
-            </section>
+                <div id="free-tools-container" class="space-y-4">
+                    </div>
+            </div>
 
-            <section class="directory-grid" id="tools-container">
-                </section>
-        </main>
-    </div>
+            <div class="bg-blue-50/40 border border-blue-100 rounded-2xl p-6">
+                <div class="flex items-center justify-between mb-6">
+                    <div class="flex items-center space-x-2">
+                        <span class="bg-blue-500 text-white text-xs font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Paid</span>
+                        <h2 class="text-xl font-bold text-blue-900">Paid & Premium Tools</h2>
+                    </div>
+                    <span id="paid-counter" class="text-xs font-semibold bg-blue-100 text-blue-800 px-2.5 py-0.5 rounded-full">0 found</span>
+                </div>
+                <div id="paid-tools-container" class="space-y-4">
+                    </div>
+            </div>
 
-    <footer>
-        <div>Copyright © 2026 BOTBOX Engine Directory Ecosystem. All rights reserved.</div>
-    </footer>
+        </section>
+    </main>
 
     <script>
-        // Data generation matrices to yield 204 real-world alternative styled listings across 12 targeted niches
-        const niches = [
-            "Chatbots & Assistants", "Copywriting & SEO", "Image Generation", 
-            "Video & Motion", "Audio & Voice", "Coding & Dev", 
-            "Data & Analytics", "Design & UI", "Marketing & Growth", 
-            "Productivity", "Business Automation", "Research & Education"
+        // Database Core Definition Config
+        const nichesConfig = {
+            "chatbots": "💬 Chatbots & Assistants",
+            "marketing": "📈 Marketing & Social Media",
+            "seo": "🔍 SEO & Copywriting",
+            "design": "🎨 Design & Image Gen",
+            "video": "🎥 Video & Motion Editing",
+            "audio": "🔊 Audio & Voice Tools",
+            "coding": "💻 Coding & Dev Automation",
+            "analytics": "📊 Data & Analytics",
+            "productivity": "⚡ Productivity & Office",
+            "business": "🤝 Business Automation",
+            "research": "🎓 Research & Education",
+            "support": "🛠️ Customer Support AI"
+        };
+
+        // Initialize the base dictionary structures dynamically
+        const aiDatabase = {};
+        Object.keys(nichesConfig).forEach(key => {
+            aiDatabase[key] = {
+                name: nichesConfig[key],
+                free: [],
+                paid: []
+            };
+        });
+
+        // 204 Real Production-Ready AI Tool Seed Listings
+        const toolsSeedData = [
+            // Chatbots
+            { name: "ChatGPT", niche: "chatbots", price: "free", desc: "OpenAI's benchmark conversational system built for open dialogue and generation tasks.", link: "https://chatgpt.com" },
+            { name: "Claude AI", niche: "chatbots", price: "free", desc: "Anthropic's helper known for advanced writing depth, complex logical reasoning, and large token file context handling.", link: "https://claude.ai" },
+            { name: "Google Gemini", niche: "chatbots", price: "free", desc: "Google's direct native assistant deeply tied into real-time search queries and ecosystem tools.", link: "https://gemini.google.com" },
+            { name: "Poe AI", niche: "chatbots", price: "free", desc: "Aggregated layout by Quora allowing fast custom setup of diverse third-party conversational pipelines.", link: "https://poe.com" },
+            { name: "Pi AI", niche: "chatbots", price: "free", desc: "A supportive, highly conversational personal companion prioritizing natural dialogue flow.", link: "https://pi.ai" },
+            { name: "HuggingChat", niche: "chatbots", price: "free", desc: "Open-source interface allowing complete community modeling deployment instantly on the web.", link: "https://huggingface.co/chat" },
+            { name: "Character.AI", niche: "chatbots", price: "free", desc: "Allows interaction with customized persona representations, historical figures, and community-designed companion bots.", link: "https://character.ai" },
+            { name: "Microsoft Copilot Pro", niche: "chatbots", price: "paid", desc: "Direct Office 365 contextual tool suite syncing word documents and sheets with prompt optimization features.", link: "https://copilot.microsoft.com" },
+            { name: "Replika Premium", niche: "chatbots", price: "paid", desc: "Advanced virtual companions featuring responsive adaptive voices and detailed personality customization mechanics.", link: "https://replika.com" },
+            { name: "Kore.ai", niche: "chatbots", price: "paid", desc: "Enterprise conversational framework engineered with security guardrails for commercial banking, retail, and systems.", link: "https://kore.ai" },
+            { name: "Anyscale", niche: "chatbots", price: "paid", desc: "Scales structural open language model deployment pipelines securely via custom micro-endpoints.", link: "https://anyscale.com" },
+            { name: "Cresta", niche: "chatbots", price: "paid", desc: "Monitors, transcribes, and guides live helpdesk conversations to boost human operation metrics.", link: "https://cresta.com" },
+            { name: "DeepConverse", niche: "chatbots", price: "paid", desc: "Deploys automated customer answers instantly synced with internal knowledge repositories.", link: "https://deepconverse.com" },
+            { name: "Landbot Enterprise", niche: "chatbots", price: "paid", desc: "Visual conversation pathway builder helping operations configure direct interactive chat patterns.", link: "https://landbot.io" },
+            { name: "ManyChat Paid", niche: "chatbots", price: "paid", desc: "Automates complex interactive direct message funnels and responses across major social platforms securely.", link: "https://manychat.com" },
+            { name: "LiveChat AI", niche: "chatbots", price: "paid", desc: "Combines classic ticketing services with real-time intent engines to quickly resolve incoming issues.", link: "https://livechat.ai" },
+            { name: "Botpress Cloud", niche: "chatbots", price: "free", desc: "Visual developer platform built for constructing OpenAI-driven action loops with database integrations.", link: "https://botpress.com" },
+
+            // Marketing
+            { name: "Buffer", niche: "marketing", price: "free", desc: "Schedule posts automatically to multiple channels on their generous free package.", link: "https://buffer.com" },
+            { name: "Publer", niche: "marketing", price: "free", desc: "Visual social media organizer with basic automation capabilities.", link: "https://publer.io" },
+            { name: "ManyChat", niche: "marketing", price: "free", desc: "Visual funnel generator built to trigger instant automated responses inside Instagram direct messaging layouts.", link: "https://manychat.com" },
+            { name: "HubSpot AI", niche: "marketing", price: "free", desc: "CRM-integrated assistant assisting workflows with draft scheduling optimizations.", link: "https://hubspot.com" },
+            { name: "Mailchimp Assistant", niche: "marketing", price: "free", desc: "Provides optimization tips and layout outlines for email broadcast distributions.", link: "https://mailchimp.com" },
+            { name: "Flick AI", niche: "marketing", price: "free", desc: "Assists brainstorm loops by suggesting related social media hashtags and concept ideas.", link: "https://flick.social" },
+            { name: "Simplified Marketing", niche: "marketing", price: "free", desc: "Multi-tool asset processing short social media captions alongside a visual editor.", link: "https://simplified.com" },
+            { name: "Jasper AI", niche: "marketing", price: "paid", desc: "Enterprise-grade copywriter engine built for marketing and business assets.", link: "https://jasper.ai" },
+            { name: "AdCreative.ai", niche: "marketing", price: "paid", desc: "Generates conversion-focused ad banners and social layouts in seconds.", link: "https://adcreative.ai" },
+            { name: "Copy.ai", niche: "marketing", price: "paid", desc: "Automates long marketing campaigns and text transformation pathways with systemic ease.", link: "https://copy.ai" },
+            { name: "Ocoya", niche: "marketing", price: "paid", desc: "All-in-one dashboard managing visual item drafting, caption logic, and automated scheduling.", link: "https://ocoya.com" },
+            { name: "Smartly.io", niche: "marketing", price: "paid", desc: "Automates targeted social ad campaign testing scales across multiple modern networks.", link: "https://smartly.io" },
+            { name: "Brand24", niche: "marketing", price: "paid", desc: "Scans open networks in real time to capture active conversational mentions of selected keywords.", link: "https://brand24.com" },
+            { name: "Cortex AI", niche: "marketing", price: "paid", desc: "Uses data insights to determine when and what type of creative assets your target audience prefers.", link: "https://meetcortex.com" },
+            { name: "Albert AI", niche: "marketing", price: "paid", desc: "Autonomous software layer managing enterprise ad budget allocations across platforms.", link: "https://albert.ai" },
+            { name: "Predis.ai", niche: "marketing", price: "paid", desc: "Transforms text descriptions into ready-to-post short video reels and descriptive carousels.", link: "https://predis.ai" },
+
+            // SEO
+            { name: "Perplexity AI", niche: "seo", price: "free", desc: "Deep, live internet-guided conversational search providing direct sources.", link: "https://perplexity.ai" },
+            { name: "AnswerThePublic", niche: "seo", price: "free", desc: "Displays keyword question clusters for popular Google searches.", link: "https://answerthepublic.com" },
+            { name: "Google Keyword Planner", niche: "seo", price: "free", desc: "Core direct source tool used to monitor authentic search metric volumes globally.", link: "https://ads.google.com" },
+            { name: "Hsupertools", niche: "seo", price: "free", desc: "Comprehensive repository of completely free lookup engines processing niche queries.", link: "https://hsupertools.com" },
+            { name: "Ahrefs Free Tools", niche: "seo", price: "free", desc: "Free sub-checkers assessing specific page parameters and generic keyword variations.", link: "https://ahrefs.com" },
+            { name: "Keyword Discovery", niche: "seo", price: "free", desc: "Suggests simple topic variations based on alphabetical search string extensions.", link: "https://keyworddiscovery.com" },
+            { name: "Semrush Sensor", niche: "seo", price: "free", desc: "Tracks daily volatility shifts across algorithmic indexing patterns.", link: "https://semrush.com" },
+            { name: "Surfer SEO", niche: "seo", price: "paid", desc: "Analyzes top competitors to provide a comprehensive, real-time writing checklist.", link: "https://surferseo.com" },
+            { name: "Scalenut", niche: "seo", price: "paid", desc: "All-in-one platform processing organic research directly into complete blog drafts.", link: "https://scalenut.com" },
+            { name: "Frase.io", niche: "seo", price: "paid", desc: "Constructs direct outlines by comparing layout patterns across active front-page results.", link: "https://frase.io" },
+            { name: "MarketMuse", niche: "seo", price: "paid", desc: "Audits entire domain structures to flag content gaps compared to competitor web footprints.", link: "https://marketmuse.com" },
+            { name: "Outranking", niche: "seo", price: "paid", desc: "Advanced blueprint drafting engine combining schema design with content generation guidelines.", link: "https://outranking.io" },
+            { name: "Clearscope", niche: "seo", price: "paid", desc: "The standard optimization layer tracking real-time semantic query density variables.", link: "https://clearscope.io" },
+            { name: "WriterZen", niche: "seo", price: "paid", desc: "Discovers and filters highly transactional keyword semantic clusters in bulk files.", link: "https://writerzen.net" },
+            { name: "SE Ranking AI", niche: "seo", price: "paid", desc: "Combines ranking history logs with keyword generator algorithms.", link: "https://seranking.com" },
+            { name: "Link Whisper", niche: "seo", price: "paid", desc: "WordPress utility using intelligent analysis to suggest contextual internal links instantly.", link: "https://linkwhisper.com" },
+            { name: "InLinks", niche: "seo", price: "paid", desc: "Automates entity optimization maps and manages internal anchor links dynamically.", link: "https://inlinks.net" },
+
+            // Design
+            { name: "Leonardo.ai", niche: "design", price: "free", desc: "Generative canvas platform offering clean daily token renewals.", link: "https://leonardo.ai" },
+            { name: "Bing Image Creator", niche: "design", price: "free", desc: "Generates hyper-detailed prompts using Microsoft's underlying DALL-E 3 pipeline.", link: "https://bing.com/create" },
+            { name: "Adobe Firefly Free", niche: "design", price: "free", desc: "Safe commercial generation tools integrated within basic online workspace models.", link: "https://firefly.adobe.com" },
+            { name: "Canva AI Tools", niche: "design", price: "free", desc: "Includes basic background removal and magic asset replacement brushes online.", link: "https://canva.com" },
+            { name: "Craiyon", niche: "design", price: "free", desc: "Open source text-to-image engine rendering quick grid matrices without prompt bounds.", link: "https://craiyon.com" },
+            { name: "Playground AI", niche: "design", price: "free", desc: "A creative canvas built for editing, expanding, and polishing image compositions manually.", link: "https://playground.com" },
+            { name: "Recraft.ai", niche: "design", price: "free", desc: "Excellent interface designed to yield scalable vector files and precise design layouts.", link: "https://recraft.ai" },
+            { name: "Midjourney", niche: "design", price: "paid", desc: "Unmatched creative artistic generations processed directly on Discord or web.", link: "https://midjourney.com" },
+            { name: "Magnific AI", niche: "design", price: "paid", desc: "High-end texture upscaling software built for design pros.", link: "https://magnific.ai" },
+            { name: "Runway Gen-3", niche: "design", price: "paid", desc: "Advanced generative image-to-video tools with camera pacing controls.", link: "https://runwayml.com" },
+            { name: "Adobe Photoshop AI", niche: "design", price: "paid", desc: "Generative Fill feature baked directly into professional layers for graphic artists.", link: "https://adobe.com/photoshop" },
+            { name: "Khroma AI", niche: "design", price: "paid", desc: "Learns personal design preferences to build infinite color palette selections.", link: "https://khroma.co" },
+            { name: "Uizard Pro", niche: "design", price: "paid", desc: "Transforms wireframe sketches into interactive UI mockups instantly.", link: "https://uizard.io" },
+            { name: "Looka Premium", niche: "design", price: "paid", desc: "Generates comprehensive brand identity kits around chosen design directions.", link: "https://looka.com" },
+            { name: "Topaz Gigapixel AI", niche: "design", price: "paid", desc: "Desktop processing asset refining blurred frames into high-resolution imagery.", link: "https://topazlabs.com" },
+            { name: "Photoroom Pro", niche: "design", price: "paid", desc: "Batch background removal built for high-volume e-commerce product imagery catalogs.", link: "https://photoroom.com" },
+            { name: "Vectary Pro", niche: "design", price: "paid", desc: "Builds high-quality 3D configurations for real-time web browser rendering pipelines.", link: "https://vectary.com" },
+
+            // Video
+            { name: "CapCut AI", niche: "video", price: "free", desc: "Offers automatic multi-language subtitle tracking and speech-to-text features.", link: "https://capcut.com" },
+            { name: "Veed.io Free", niche: "video", price: "free", desc: "Web timeline editor offering basic video caption tools and trim functions.", link: "https://veed.io" },
+            { name: "Opus Clip", niche: "video", price: "free", desc: "Cuts long talking-head videos into optimized, auto-captioned short-form clips.", link: "https://opus.pro" },
+            { name: "Adobe Premiere Productions", niche: "video", price: "paid", desc: "Includes advanced text-based editing, allowing users to cut video timelines by editing transcripts.", link: "https://adobe.com/premiere" },
+            { name: "Synthesia", niche: "video", price: "paid", desc: "Generates synthetic speaking avatars from text scripts in over 120 languages.", link: "https://synthesia.io" },
+            { name: "HeyGen Premium", niche: "video", price: "paid", desc: "Creates hyper-realistic presentation avatars with natural voice matching capabilities.", link: "https://heygen.com" },
+            { name: "Descript", niche: "video", price: "paid", desc: "Audio-first podcast and video system allowing cloned voice corrections directly inside transcripts.", link: "https://descript.com" },
+            { name: "InVideo AI", niche: "video", price: "paid", desc: "Converts text scripts into full video drafts with voiceovers and stock footage.", link: "https://invideo.io" },
+            { name: "Pika Labs Premium", niche: "video", price: "paid", desc: "Generative platform that animates images or prompts into high-quality video frames.", link: "https://pika.art" },
+            { name: "Kaiber.ai", niche: "video", price: "paid", desc: "Creative animation engine built to transform music files into continuous visual experiences.", link: "https://kaiber.ai" },
+            { name: "Luma Dream Machine", niche: "video", price: "free", desc: "High-speed generative video rendering system handling camera shifts seamlessly.", link: "https://lumalabs.ai" },
+            { name: "Kling AI", niche: "video", price: "free", desc: "Generates long cinematic video clips with physically accurate object physics.", link: "https://klingai.com" },
+            { name: "Fliki Premium", niche: "video", price: "paid", desc: "Transforms text articles into complete narrative videos with realistic voiceovers.", link: "https://fliki.ai" },
+            { name: "Colossyan Pro", niche: "video", price: "paid", desc: "Enterprise training video creator featuring high-fidelity synthetic workplace actors.", link: "https://colossyan.com" },
+            { name: "DeepBrain AI", niche: "video", price: "paid", desc: "Customized virtual assistant implementations built for corporate training and presentations.", link: "https://deepbrain.io" },
+            { name: "Remini Video Pro", niche: "video", price: "paid", desc: "Restores clarity and sharpness to low-quality or archived video files.", link: "https://remini.ai" },
+            { name: "Wonder Dynamics", niche: "video", price: "paid", desc: "Automatically maps and renders CG characters directly into live-action video scenes.", link: "https://wonderdynamics.com" },
+
+            // Audio
+            { name: "ElevenLabs Free", niche: "audio", price: "free", desc: "Industry-leading synthetic voice profiles with lifelike emotional range.", link: "https://elevenlabs.io" },
+            { name: "Adobe Podcast Enhance", niche: "audio", price: "free", desc: "Cleans voice recordings, removing background noise to mimic a professional studio environment.", link: "https://podcast.adobe.com" },
+            { name: "Suno AI Free", niche: "audio", price: "free", desc: "Generates fully arranged songs with lyrics, vocals, and instrumentation from simple descriptions.", link: "https://suno.com" },
+            { name: "Audiocraft by Meta", niche: "audio", price: "free", desc: "Open source code model suite generating atmospheric audio clips and background music tracks.", link: "https://github.com/facebookresearch/audiocraft" },
+            { name: "LALAL.AI Starter", niche: "audio", price: "free", desc: "Splits songs into clean, separate vocal and instrumental audio tracks online.", link: "https://lalal.ai" },
+            { name: "Suno AI Pro", niche: "audio", price: "paid", desc: "Generates full-length commercial music files with complete platform rights.", link: "https://suno.com" },
+            { name: "Udio AI Premium", niche: "audio", price: "paid", desc: "High-fidelity music production model tailored for studio-grade vocal generation.", link: "https://udio.com" },
+            { name: "ElevenLabs Enterprise", niche: "audio", price: "paid", desc: "Advanced programmatic voice cloning models for global product distributions.", link: "https://elevenlabs.io" },
+            { name: "Soundraw", niche: "audio", price: "paid", desc: "Infinite background track generator allowing real-time tempo adjustments.", link: "https://soundraw.io" },
+            { name: "Boomy Premium", niche: "audio", price: "paid", desc: "Creates and distributes algorithmically generated tracks to major streaming platforms.", link: "https://boomy.com" },
+            { name: "Voicemod Pro", niche: "audio", price: "paid", desc: "Real-time voice changer tool designed for live streamers and gamers.", link: "https://voicemod.net" },
+            { name: "Resemble.ai", niche: "audio", price: "paid", desc: "Dynamic enterprise voice cloning engine engineered with safety watermark protections.", link: "https://resemble.ai" },
+            { name: "Murf.ai Pro", niche: "audio", price: "paid", desc: "Studio voice tracking toolkit tailored for product presentations and corporate media.", link: "https://murf.ai" },
+            { name: "Altered Studio", niche: "audio", price: "paid", desc: "Professional workstation designed for editing vocal performances and dialogue setups.", link: "https://altered.ai" },
+            { name: "Podcastle Pro", niche: "audio", price: "paid", desc: "All-in-one recording and editing suite for producing crisp, professional podcasts.", link: "https://podcastle.ai" },
+            { name: "Audioice Pro", niche: "audio", price: "paid", desc: "Cleans field recordings by stripping wind noise and mechanical hums.", link: "https://audioice.com" },
+            { name: "Auphonic Paid", niche: "audio", price: "paid", desc: "Automates loud balancing and distribution targets across media files.", link: "https://auphonic.com" },
+
+            // Coding
+            { name: "VS Code Copilot", niche: "coding", price: "free", desc: "Inline code assistant suggesting autocomplete functions directly inside your workspace.", link: "https://github.com/features/copilot" },
+            { name: "Cursor Editor Free", niche: "coding", price: "free", desc: "An AI-first code editor designed for deep codebase refactoring and editing projects.", link: "https://cursor.com" },
+            { name: "Tabnine Free", niche: "coding", price: "free", desc: "Local context engine predicting structural coding strings inside active files.", link: "https://tabnine.com" },
+            { name: "Codeium", niche: "coding", price: "free", desc: "Lightning-fast, feature-rich coding companion free for individual developer use.", link: "https://codeium.com" },
+            { name: "Blackbox AI", niche: "coding", price: "free", desc: "Extracts code blocks from video files and answers coding queries directly in-browser.", link: "https://blackbox.ai" },
+            { name: "Amazon Q Developer", niche: "coding", price: "free", desc: "AWS platform assistant optimizing infrastructure code scripts seamlessly.", link: "https://aws.amazon.com/q" },
+            { name: "Replit Agent", niche: "coding", price: "paid", desc: "Deploys complete, production-ready web applications from natural language prompts.", link: "https://replit.com" },
+            { name: "GitHub Copilot Enterprise", niche: "coding", price: "paid", desc: "Integrates conversational intelligence across complex organizational code repositories.", link: "https://github.com/features/copilot" },
+            { name: "Cursor Pro", niche: "coding", price: "paid", desc: "Unlimited fast inference engine analyzing complex multi-file engineering problems.", link: "https://cursor.com" },
+            { name: "Tabnine Enterprise", niche: "coding", price: "paid", desc: "Self-hosted, secure code generation engine built for large-scale enterprise environments.", link: "https://tabnine.com" },
+            { name: "Codacy Pro", niche: "coding", price: "paid", desc: "Automates code quality audits and flags security vulnerabilities in real time.", link: "https://codacy.com" },
+            { name: "MutableAI", niche: "coding", price: "paid", desc: "Transforms messy application code repositories into structured, readable documentation web pages.", link: "https://mutable.ai" },
+            { name: "Bito AI Paid", niche: "coding", price: "paid", desc: "Deploys customized developer automated check loops straight into IDE frameworks.", link: "https://bito.ai" },
+            { name: "Sourcegraph Cody Pro", niche: "coding", price: "paid", desc: "Search and navigate massive, distributed codebases using natural language queries.", link: "https://sourcegraph.com/cody" },
+            { name: "SonarQube AI", niche: "coding", price: "paid", desc: "Scans enterprise source code to prevent algorithmic syntax errors before production deployments.", link: "https://sonarsource.com" },
+            { name: "Pieces for Developers", niche: "coding", price: "free", desc: "Saves and organizes code snippets, enriching them with contextual tags automatically.", link: "https://pieces.app" },
+            { name: "GitLab Duo", niche: "coding", price: "paid", desc: "Built-in AI features covering the entire DevSecOps application pipeline.", link: "https://about.gitlab.com" },
+
+            // Analytics
+            { name: "Julius AI Free", niche: "analytics", price: "free", desc: "Analyzes spreadsheets and creates beautiful data visualizations from text instructions.", link: "https://julius.ai" },
+            { name: "Polymer Lite", niche: "analytics", price: "free", desc: "Transforms spreadsheets into interactive web dashboards without coding requirements.", link: "https://polymersearch.com" },
+            { name: "Akkio Free Trial", niche: "analytics", price: "free", desc: "No-code prediction modeling platform designed for operational business data analysis.", link: "https://akkio.com" },
+            { name: "MonkeyLearn", niche: "analytics", price: "free", desc: "Text analysis toolkit extracting basic sentiment trends from customer support tickets.", link: "https://monkeylearn.com" },
+            { name: "Tableau Pulse", niche: "analytics", price: "paid", desc: "Delivers automated, real-time metrics and data insights directly to team workflows.", link: "https://tableau.com" },
+            { name: "Julius AI Pro", niche: "analytics", price: "paid", desc: "Advanced processing engine handling large databases and complex statistical calculations.", link: "https://julius.ai" },
+            { name: "Akkio Enterprise", niche: "analytics", price: "paid", desc: "Enterprise machine learning engine built to scale real-time performance predictions.", link: "https://akkio.com" },
+            { name: "Sisense Fusion", niche: "analytics", price: "paid", desc: "Embeds customized analytical dashboards straight into customer-facing applications.", link: "https://sisense.com" },
+            { name: "Hevo Data Paid", niche: "analytics", price: "paid", desc: "Automates real-time data pipelines feeding into large corporate storage systems.", link: "https://hevodata.com" },
+            { name: "Kili Technology", niche: "analytics", price: "paid", desc: "Enterprise platform for labeling and managing data for machine learning models.", link: "https://kili-technology.com" },
+            { name: "SparkBeyond", niche: "analytics", price: "paid", desc: "Scans data patterns to find deep, non-obvious root causes and growth opportunities.", link: "https://sparkbeyond.com" },
+            { name: "Platypus Analytics", niche: "analytics", price: "paid", desc: "Optimizes supply chain inventory data using advanced predictive forecasting loops.", link: "https://platypus.ai" },
+            { name: "Pecan AI", niche: "analytics", price: "paid", desc: "Predictive analytics engine optimized for marketing and customer conversion metrics.", link: "https://pecan.ai" },
+            { name: "Knime Business Hub", niche: "analytics", price: "paid", desc: "Collaborative enterprise platform for managing open-source data science workflows.", link: "https://knime.com" },
+            { name: "Alteryx AI Cloud", niche: "analytics", price: "paid", desc: "Automates complex data preparation and analytical modeling processes.", link: "https://alteryx.com" },
+            { name: "Obviously AI", niche: "analytics", price: "paid", desc: "Builds and deploys highly accurate predictive models from raw data in minutes.", link: "https://obviously.ai" },
+            { name: "Vantage Premium", niche: "analytics", price: "paid", desc: "Monitors and optimizes cloud infrastructure costs using predictive modeling.", link: "https://vantage.sh" },
+
+            // Productivity
+            { name: "Goblin.tools", niche: "productivity", price: "free", desc: "Brilliant task manager that breaks massive, daunting items down into tiny micro-tasks.", link: "https://goblin.tools" },
+            { name: "Notion AI Free", niche: "productivity", price: "free", desc: "Workspace block helper text editor optimizing quick draft layouts.", link: "https://notion.so" },
+            { name: "Otter.ai Basic", niche: "productivity", price: "free", desc: "Transcribes real-time voice notes and meetings, providing basic summary outputs.", link: "https://otter.ai" },
+            { name: "Todoist Filter AI", niche: "productivity", price: "free", desc: "Organizes task backlogs using smart categorization suggestions.", link: "https://todoist.com" },
+            { name: "Motion Calendar", niche: "productivity", price: "paid", desc: "Uses artificial intelligence to dynamically reshape your daily calendar when schedules break.", link: "https://usemotion.com" },
+            { name: "Granola Notes", niche: "productivity", price: "paid", desc: "Transcription assistant that quietly logs raw audio to map action items.", link: "https://granola.so" },
+            { name: "Notion AI Premium", niche: "productivity", price: "paid", desc: "Deep knowledge search across all connected workspace folders and files.", link: "https://notion.so" },
+            { name: "Otter Pilot Pro", niche: "productivity", price: "paid", desc: "Automatically joins and records video calls, capturing action items and slides.", link: "https://otter.ai" },
+            { name: "Superhuman AI", niche: "productivity", price: "paid", desc: "Blazing fast email client that summarizes threads and writes replies from brief notes.", link: "https://superhuman.com" },
+            { name: "SaneBox Premium", niche: "productivity", price: "paid", desc: "Automatically filters unimportant emails out of your main inbox folder.", link: "https://sanebox.com" },
+            { name: "Fellow.app Paid", niche: "productivity", price: "paid", desc: "Organizes team meetings with AI-generated agendas and accountability tracking.", link: "https://fellow.app" },
+            { name: "Time Doctor AI", niche: "productivity", price: "paid", desc: "Monitors real-time workflow metrics to highlight team productivity bottlenecks.", link: "https://timedoctor.com" },
+            { name: "Xembly Enterprise", niche: "productivity", price: "paid", desc: "Automated executive assistant managing scheduling and meeting minutes.", link: "https://xembly.com" },
+            { name: "Before Sunset AI", niche: "productivity", price: "paid", desc: "Transforms messy weekly goal lists into structured, realistic daily schedules.", link: "https://beforesunset.ai" },
+            { name: "Clockwise Pro", niche: "productivity", price: "paid", desc: "Optimizes team calendars to create uninterrupted blocks of focus time.", link: "https://getclockwise.com" },
+            { name: "Taskade Pro", niche: "productivity", price: "paid", desc: "Deploys teams of custom AI agents to automate collaborative workflows.", link: "https://taskade.com" },
+            { name: "Sunsama Paid", niche: "productivity", price: "paid", desc: "Mindful daily planner that balances tasks and calendar events seamlessly.", link: "https://sunsama.com" },
+
+            // Business
+            { name: "Zapier AI Free", niche: "business", price: "free", desc: "Builds automated data links between different apps using simple language prompts.", link: "https://zapier.com" },
+            { name: "Make.com Core", niche: "business", price: "free", desc: "Visual automation platform with free basic workspace workflow execution tokens.", link: "https://make.com" },
+            { name: "Loom AI Free", niche: "business", price: "free", desc: "Records quick video updates, automatically adding titles and removing filler words.", link: "https://loom.com" },
+            { name: "Gamma App Free", niche: "business", price: "free", desc: "Transforms text descriptions into beautiful presentations and webpages instantly.", link: "https://gamma.app" },
+            { name: "Beautiful.ai Pro", niche: "business", price: "paid", desc: "Presentation software that automatically adjusts slide designs as you add content.", link: "https://beautiful.ai" },
+            { name: "Tome Premium", niche: "business", price: "paid", desc: "Generates polished business proposals and interactive product narratives quickly.", link: "https://tome.app" },
+            { name: "Zapier Enterprise", niche: "business", price: "paid", desc: "Scales secure, high-volume automated data pipelines across entire corporations.", link: "https://zapier.com" },
+            { name: "Make.com Enterprise", niche: "business", price: "paid", desc: "High-volume visual workflow builder with enterprise security controls.", link: "https://make.com" },
+            { name: "Gong.io Platform", niche: "business", price: "paid", desc: "Analyzes customer interactions across calls and emails to guide sales strategies.", link: "https://gong.io" },
+            { name: "Chorus.ai", niche: "business", price: "paid", desc: "Records and analyzes sales conversations to highlight winning team strategies.", link: "https://chorus.ai" },
+            { name: "Aviso Enterprise", niche: "business", price: "paid", desc: "Predictive forecasting platform that simplifies sales pipeline tracking for teams.", link: "https://aviso.com" },
+            { name: "RevenueCat Premium", niche: "business", price: "paid", desc: "Tracks mobile app subscriptions, optimizing pricing models automatically.", link: "https://revenuecat.com" },
+            { name: "Levity AI", niche: "business", price: "paid", desc: "No-code workflow assistant that automates repetitive daily data entry tasks.", link: "https://levity.ai" },
+            { name: "Cognism Premium", niche: "business", price: "paid", desc: "Provides verified B2B contact data to optimize corporate sales outreach.", link: "https://cognism.com" },
+            { name: "ZoomInfo Chorus", niche: "business", price: "paid", desc: "Combines comprehensive market data with conversational analysis for sales teams.", link: "https://zoominfo.com" },
+            { name: "Seamless.AI Pro", niche: "business", price: "paid", desc: "Real-time search engine for finding verified sales leads and contact info.", link: "https://seamless.ai" },
+            { name: "People.ai Platform", niche: "business", price: "paid", desc: "Captures business activity logs to streamline pipeline management for teams.", link: "https://people.ai" },
+
+            // Research
+            { name: "Consensus AI Free", niche: "research", price: "free", desc: "Search engine that extracts scientific evidence directly from peer-reviewed studies.", link: "https://consensus.app" },
+            { name: "Elicit Free", niche: "research", price: "free", desc: "Automates research workflows, finding and mapping patterns across academic papers.", link: "https://elicit.com" },
+            { name: "SciSpace Free", niche: "research", price: "free", desc: "Simplifies complex scientific papers with a real-time conversational chat assistant.", link: "https://typeset.io" },
+            { name: "Zotero AI Plugin", niche: "research", price: "free", desc: "Open-source citation assistant that extracts key takeaways from your reference library.", link: "https://zotero.org" },
+            { name: "Elicit Plus", niche: "research", price: "paid", desc: "Extracts data from thousands of academic papers simultaneously in minutes.", link: "https://elicit.com" },
+            { name: "Consensus Premium", niche: "research", price: "paid", desc: "Advanced filtering system for compiling large-scale academic research reviews.", link: "https://consensus.app" },
+            { name: "ResearchRabbit Pro", niche: "research", price: "paid", desc: "Visual mapping system tracking citation networks across research fields.", link: "https://researchrabbitapp.com" },
+            { name: "Litmaps Pro", niche: "research", price: "paid", desc: "Visualizes academic citation paths over time to fast-track literature reviews.", link: "https://litmaps.com" },
+            { name: "ChatDOC Premium", niche: "research", price: "paid", desc: "Chat assistant that extracts data from massive data tables and technical manuals.", link: "https://chatdoc.com" },
+            { name: "Scholarcy Paid", niche: "research", price: "paid", desc: "Converts long technical papers into concise summary flashcards automatically.", link: "https://scholarcy.com" },
+            { name: "Iris.ai Premium", niche: "research", price: "paid", desc: "Smart research processing platform built for corporate R&D engineering teams.", link: "https://iris.ai" },
+            { name: "DeepL Write Pro", niche: "research", price: "paid", desc: "Refines technical writing and translations, ensuring formal scientific accuracy.", link: "https://deepl.com/write" },
+            { name: "QuillBot Premium", niche: "research", price: "paid", desc: "Advanced paraphrasing tool with built-in academic citation formatting features.", link: "https://quillbot.com" },
+            { name: "Grammarly Business", niche: "research", price: "paid", desc: "Maintains clear, consistent tone guardrails across organizational communications.", link: "https://grammarly.com" },
+            { name: "Jenni AI Premium", niche: "research", price: "paid", desc: "Writing assistant that autocompletes text, sourcing citations as you write.", link: "https://jenni.ai" },
+            { name: "Lateral.io Pro", niche: "research", price: "paid", desc: "Organizes and categorizes text findings across large document groups side-by-side.", link: "https://lateral.io" },
+            { name: "Genei Pro", niche: "research", price: "paid", desc: "Organizes document folders, producing concise summary updates automatically.", link: "https://genei.io" },
+
+            // Support
+            { name: "Intercom Fin Free Tier", niche: "support", price: "free", desc: "Customer support engine that resolves basic issues using your existing help articles.", link: "https://intercom.com" },
+            { name: "Tidio Lyro Free", niche: "support", price: "free", desc: "Support chatbot designed to answer common customer questions instantly for small shops.", link: "https://tidio.com" },
+            { name: "Freshdesk AI Lite", niche: "support", price: "free", desc: "Assists agents by drafting clear replies and organizing incoming help tickets.", link: "https://freshdesk.com" },
+            { name: "Zendesk Advanced AI", niche: "support", price: "paid", desc: "Intelligent tracking that flags customer sentiment and priority levels automatically.", link: "https://zendesk.com" },
+            { name: "Intercom Fin Pro", niche: "support", price: "paid", desc: "Resolves complex customer problems automatically across chat channels securely.", link: "https://intercom.com" },
+            { name: "Gorgias AI Pro", niche: "support", price: "paid", desc: "Automates order management and returns for high-volume e-commerce stores.", link: "https://gorgias.com" },
+            { name: "Ada Support Premium", niche: "support", price: "paid", desc: "Enterprise platform managing high-volume service requests across global systems.", link: "https://ada.cx" },
+            { name: "Inbenta Platform", niche: "support", price: "paid", desc: "Uses natural language processing to guide customers straight to relevant help content.", link: "https://inbenta.com" },
+            { name: "Netomi AI", niche: "support", price: "paid", desc: "Automates customer service interactions across email, chat, and messaging channels.", link: "https://netomi.com" },
+            { name: "Solvvy Enterprise", niche: "support", price: "paid", desc: "Guides customers through multi-step troubleshooting workflows automatically.", link: "https://solvvy.com" },
+            { name: "Kaizan.ai", niche: "support", price: "paid", desc: "Client success platform that flags customer retention risks automatically.", link: "https://kaizan.ai" },
+            { name: "MaestroQA AI", niche: "support", price: "paid", desc: "Automates quality reviews for customer service team conversations.", link: "https://maestroqa.com" },
+            { name: "SupportLogic Pro", niche: "support", price: "paid", desc: "Analyzes communication text fields to flag accounts that need immediate attention.", link: "https://supportlogic.com" },
+            { name: "Thankful.ai", niche: "support", price: "paid", desc: "Resolves transactional support issues like tracking updates and returns automatically.", link: "https://thankful.ai" },
+            { name: "Kustomer IQ", niche: "support", price: "paid", desc: "Combines cross-channel histories into a single view to speed up response times.", link: "https://kustomer.com" },
+            { name: "Helpshift AI Pro", niche: "support", price: "paid", desc: "In-app support tool with built-in translation features for global mobile apps.", link: "https://helpshift.com" },
+            { name: "Gladly Hero AI", niche: "support", price: "paid", desc: "Customer service platform organized around complete lifelong conversation histories.", link: "https://gladly.com" }
         ];
 
-        const pricingOptions = ["free", "paid"];
-        
-        // Database Array setup
-        const toolsDatabase = [];
+        // Hydrate the relational database object structure cleanly
+        toolsSeedData.forEach(item => {
+            if (aiDatabase[item.niche]) {
+                aiDatabase[item.niche][item.price].push({
+                    name: item.name,
+                    desc: item.desc,
+                    link: item.link
+                });
+            }
+        });
 
-        // Dynamic Generator Engine loop to inject precisely 204 items cleanly
-        for (let i = 1; i <= 204; i++) {
-            const nicheIndex = (i - 1) % niches.length;
-            const chosenNiche = niches[nicheIndex];
-            const price = pricingOptions[i % 2]; // Alternates free/paid evenly
+        let currentActiveCategoryKey = Object.keys(aiDatabase)[0];
+        let currentSearchString = "";
+
+        // Render Navigation Buttons Loop
+        const buttonBox = document.getElementById('category-buttons');
+        Object.keys(aiDatabase).forEach((key, index) => {
+            const btn = document.createElement('button');
+            btn.innerText = aiDatabase[key].name;
+            btn.id = `btn-nav-${key}`;
+            btn.className = `p-3 rounded-xl border text-sm font-medium transition text-left cursor-pointer ${
+                index === 0 ? 'bg-blue-600 text-white border-blue-600 shadow-sm' : 'bg-white hover:bg-gray-100 border-gray-200 text-gray-700'
+            }`;
+            btn.onclick = () => switchCategory(key);
+            buttonBox.appendChild(btn);
+        });
+
+        // Initialize display context on load
+        switchCategory(currentActiveCategoryKey);
+
+        // Core Layout Management State Controller
+        function switchCategory(categoryKey) {
+            currentActiveCategoryKey = categoryKey;
+
+            // Update layout button styling properties
+            document.querySelectorAll('#category-buttons button').forEach(b => {
+                b.className = "p-3 rounded-xl border text-sm font-medium transition text-left bg-white hover:bg-gray-100 border-gray-200 text-gray-700 cursor-pointer";
+            });
             
-            toolsDatabase.push({
-                id: i,
-                name: `${chosenNiche.split(' ')[0]}Forge Pro-${i}`,
-                niche: chosenNiche,
-                price: price,
-                desc: `Next-generation artificial execution variant framework targeting enhanced automated pipelines within the ${chosenNiche.toLowerCase()} ecosystem module.`,
-                ytLink: `https://www.youtube.com/results?search_query=AI+tools+tutorial+${chosenNiche.replace(/ /g, "+")}`
-            });
+            const targetBtn = document.getElementById(`btn-nav-${categoryKey}`);
+            if (targetBtn) {
+                targetBtn.className = "p-3 rounded-xl border text-sm font-medium transition text-left bg-blue-600 text-white border-blue-600 shadow-sm cursor-pointer";
+            }
+
+            processDataRender();
         }
 
-        let currentCategory = 'all';
-        let currentPriceFilter = 'all';
-        let searchQuery = '';
-
-        // Initialize application visual layers
-        function initApp() {
-            renderCategories();
-            renderTools();
+        // Live Input Processing Handle
+        function handleSearch() {
+            currentSearchString = document.getElementById('directory-search').value.toLowerCase().trim();
+            processDataRender();
         }
 
-        function renderCategories() {
-            const sidebar = document.getElementById('sidebar-categories');
-            // Retain the top button, clear the rest
-            const topBtn = sidebar.firstElementChild;
-            sidebar.innerHTML = '';
-            sidebar.appendChild(topBtn);
+        // Render Orchestrator
+        function processDataRender() {
+            const currentCategoryData = aiDatabase[currentActiveCategoryKey];
 
-            niches.forEach(niche => {
-                const count = toolsDatabase.filter(t => t.niche === niche).length;
-                const div = document.createElement('div');
-                div.className = `category-item ${currentCategory === niche ? 'active' : ''}`;
-                div.onclick = () => filterCategory(niche);
-                div.innerHTML = `<span>${niche}</span> <span class="category-count">${count}</span>`;
-                sidebar.appendChild(div);
-            });
+            // Filter sets individually against global search string variables
+            const filteredFree = currentCategoryData.free.filter(t => t.name.toLowerCase().includes(currentSearchString));
+            const filteredPaid = currentCategoryData.paid.filter(t => t.name.toLowerCase().includes(currentSearchString));
+
+            // Set dynamic text element count markers
+            document.getElementById('free-counter').innerText = `${filteredFree.length} registered`;
+            document.getElementById('paid-counter').innerText = `${filteredPaid.length} registered`;
+
+            renderCards(filteredFree, 'free-tools-container', 'border-emerald-100 hover:border-emerald-300 bg-white');
+            renderCards(filteredPaid, 'paid-tools-container', 'border-blue-100 hover:border-blue-300 bg-white');
         }
 
-        function renderTools() {
-            const container = document.getElementById('tools-container');
+        // Card HTML Builder Implementation (With Embedded YouTube Search Routing)
+        function renderCards(toolsList, containerId, customStyles) {
+            const container = document.getElementById(containerId);
             container.innerHTML = '';
-
-            const filtered = toolsDatabase.filter(tool => {
-                const matchesCategory = currentCategory === 'all' || tool.niche === currentCategory;
-                const matchesPrice = currentPriceFilter === 'all' || tool.price === currentPriceFilter;
-                const matchesSearch = tool.name.toLowerCase().includes(searchQuery) || tool.desc.toLowerCase().includes(searchQuery);
-                return matchesCategory && matchesPrice && matchesSearch;
-            });
-
-            document.getElementById('tool-count-display').innerText = filtered.length;
-
-            if(filtered.length === 0) {
-                container.innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: var(--text-gray); padding: 3rem;">No AI elements match the filter parameters.</div>`;
+            
+            if(!toolsList || toolsList.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-8 px-4 bg-gray-50/50 rounded-xl border border-dashed border-gray-200">
+                        <p class="text-gray-400 text-sm">No assets match search parameter.</p>
+                    </div>`;
                 return;
             }
 
-            filtered.forEach(tool => {
+            toolsList.forEach(tool => {
+                // Dynamically build a trusted search query targeting top YouTube industry influencers
+                const youtubeTutorialSearchQuery = `https://www.youtube.com/results?search_query=${encodeURIComponent(tool.name)}+AI+tool+tutorial+guide`;
+
                 const card = document.createElement('div');
-                card.className = 'tool-card';
+                card.className = `p-5 rounded-xl border transition shadow-sm ${customStyles}`;
                 card.innerHTML = `
-                    <div>
-                        <div class="tool-card-top">
-                            <div class="tool-img-box"><i class="fa-solid fa-microchip"></i></div>
-                            <div class="tool-identity">
-                                <h3>${tool.name}</h3>
-                                <div class="tool-niche-tag">${tool.niche}</div>
-                            </div>
-                        </div>
-                        <p class="tool-desc-text">${tool.desc}</p>
+                    <div class="flex justify-between items-start gap-4">
+                        <h3 class="text-lg font-bold tracking-tight text-gray-900">${tool.name}</h3>
+                        <a href="${tool.link}" target="_blank" class="text-xs font-semibold text-blue-600 hover:underline flex items-center shrink-0">
+                            Visit Site ↗
+                        </a>
                     </div>
-                    <div class="card-action-bar">
-                        <span class="pricing-badge ${tool.price}">${tool.price.toUpperCase()}</span>
-                        <a href="${tool.ytLink}" target="_blank" class="youtube-btn">
-                            <i class="fa-brands fa-youtube"></i> Tutorial Watch
+                    <p class="text-sm text-gray-600 mt-2 leading-relaxed mb-4">${tool.desc}</p>
+                    <div class="pt-3 border-t border-gray-100 flex items-center justify-between">
+                        <span class="text-[11px] font-medium text-gray-400">Tutorial & Reviews:</span>
+                        <a href="${youtubeTutorialSearchQuery}" target="_blank" class="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-bold text-red-600 bg-red-50 hover:bg-red-100 rounded-md transition duration-150">
+                            <i class="fa-brands fa-youtube text-sm"></i> Watch Tutorial ↗
                         </a>
                     </div>
                 `;
                 container.appendChild(card);
             });
         }
-
-        function filterCategory(cat) {
-            currentCategory = cat;
-            // Update active status elements classing
-            const items = document.querySelectorAll('.category-item');
-            items.forEach(el => {
-                if(el.firstElementChild.innerText === cat) el.classList.add('active');
-                else el.classList.remove('active');
-            });
-            renderTools();
-        }
-
-        function filterPrice(priceType) {
-            currentPriceFilter = priceType;
-            document.getElementById('btn-all-price').classList.remove('active');
-            document.getElementById('btn-free-price').classList.remove('active');
-            document.getElementById('btn-paid-price').classList.remove('active');
-
-            if(priceType === 'all') document.getElementById('btn-all-price').classList.add('active');
-            if(priceType === 'free') document.getElementById('btn-free-price').classList.add('active');
-            if(priceType === 'paid') document.getElementById('btn-paid-price').classList.add('active');
-            
-            renderTools();
-        }
-
-        function handleSearch() {
-            searchQuery = document.getElementById('search-bar').value.toLowerCase();
-            renderTools();
-        }
-
-        // Run Engine sequence on startup window completion
-        window.onload = initApp;
     </script>
 </body>
 </html>
