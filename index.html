@@ -3,469 +3,860 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BOTBOX</title>
+    <title>BOTBOX AI - Your Intelligent Tools Directory</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
+        /* DESIGN SYSTEM BASIS (FROM BOTBOX UI GENERATION) */
         :root {
-            --bg-primary: #0f172a;
-            --bg-secondary: #1e293b;
-            --text-primary: #f8fafc;
-            --text-secondary: #94a3b8;
-            --accent-color: #38bdf8;
-            --accent-hover: #0ea5e9;
-            --tag-free: #10b981;
-            --tag-paid: #f59e0b;
-            --border-color: #334155;
+            --bg-deep: #070b12;
+            --bg-main: #0b111e;
+            --bg-sidebar: #0e1726;
+            --bg-card: #111c30;
+            --border-cyan: #1a365d;
+            --border-card-active: #00d2ff;
+            --text-white: #ffffff;
+            --text-gray: #8ea3bf;
+            --accent-cyan: #00d2ff;
+            --accent-gradient: linear-gradient(135deg, #00d2ff 0%, #0084ff 100%);
         }
 
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
         }
 
         body {
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
-            padding: 2rem 1rem;
-            line-height: 1.5;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(to right, #38bdf8, #818cf8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        header p {
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-        }
-
-        .controls-container {
-            max-width: 1200px;
-            margin: 0 auto 2rem auto;
+            background-color: var(--bg-deep);
+            color: var(--text-white);
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
+        }
+
+        /* 1. TOP NAVBAR */
+        header {
+            background-color: var(--bg-main);
+            border-bottom: 1px solid var(--border-cyan);
+            padding: 0.8rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+        }
+
+        /* Reconstructed Brand Logo matching your provided image style */
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            text-decoration: none;
+        }
+
+        .logo-icon-svg {
+            width: 32px;
+            height: 32px;
+        }
+
+        .brand-name {
+            font-size: 1.6rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: var(--accent-cyan);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            color: var(--text-gray);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--accent-cyan);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
             gap: 1rem;
         }
 
-        .search-bar {
-            width: 100%;
-            padding: 0.8rem 1.2rem;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-            background-color: var(--bg-secondary);
-            color: var(--text-primary);
-            font-size: 1rem;
-            outline: none;
-            transition: border-color 0.2s;
-        }
-
-        .search-bar:focus {
-            border-color: var(--accent-color);
-        }
-
-        .filter-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            justify-content: center;
-        }
-
-        .filter-btn {
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            border: 1px solid var(--border-color);
-            background-color: var(--bg-secondary);
-            color: var(--text-secondary);
+        .btn-text {
+            color: var(--text-gray);
+            background: none;
+            border: none;
             cursor: pointer;
-            font-weight: 500;
-            transition: all 0.2s;
+            font-size: 0.9rem;
         }
 
-        .filter-btn:hover, .filter-btn.active {
-            background-color: var(--accent-color);
-            color: var(--bg-primary);
-            border-color: var(--accent-color);
-        }
-
-        .directory-section {
-            max-width: 1200px;
-            margin: 0 auto 3rem auto;
-        }
-
-        .section-title {
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid var(--border-color);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .item-count {
-            font-size: 1rem;
-            background-color: var(--border-color);
-            color: var(--text-secondary);
-            padding: 0.2rem 0.8rem;
-            border-radius: 12px;
-        }
-
-        .tools-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .tool-card {
-            background-color: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: transform 0.2s, border-color 0.2s;
-        }
-
-        .tool-card:hover {
-            transform: translateY(-2px);
-            border-color: var(--accent-color);
-        }
-
-        .tool-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 1rem;
-        }
-
-        .tool-name {
-            font-size: 1.3rem;
-            font-weight: 600;
-        }
-
-        .tool-tag {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            padding: 0.2rem 0.6rem;
-            border-radius: 4px;
-            font-weight: bold;
-        }
-
-        .tag-free {
-            background-color: rgba(16, 185, 129, 0.15);
-            color: var(--tag-free);
-        }
-
-        .tag-paid {
-            background-color: rgba(245, 158, 11, 0.15);
-            color: var(--tag-paid);
-        }
-
-        .tool-desc {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            margin-bottom: 1.5rem;
-            flex-grow: 1;
-        }
-
-        .tool-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .tool-cat {
-            font-size: 0.85rem;
-            color: var(--accent-color);
-            background-color: rgba(56, 189, 248, 0.1);
-            padding: 0.1rem 0.5rem;
-            border-radius: 4px;
-        }
-
-        .tool-link {
-            color: var(--text-primary);
-            text-decoration: none;
-            font-weight: 500;
+        .btn-outline {
+            border: 1px solid var(--accent-cyan);
+            color: var(--accent-cyan);
+            background: rgba(0, 210, 255, 0.05);
+            padding: 0.4rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
             font-size: 0.9rem;
             display: flex;
             align-items: center;
+            gap: 0.4rem;
+        }
+
+        /* 2. PAGE APP CONTAINER */
+        .app-layout {
+            display: flex;
+            flex: 1;
+        }
+
+        /* 3. SIDEBAR STYLING */
+        aside {
+            width: 280px;
+            background-color: var(--bg-sidebar);
+            border-right: 1px solid var(--border-cyan);
+            padding: 1.5rem 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .sidebar-btn-all {
+            background-color: rgba(0, 210, 255, 0.15);
+            color: var(--accent-cyan);
+            border: 1px solid var(--accent-cyan);
+            padding: 0.6rem 1rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            width: 100%;
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .category-group {
+            display: flex;
+            flex-direction: column;
             gap: 0.25rem;
         }
 
-        .tool-link:hover {
-            color: var(--accent-color);
+        .category-title {
+            color: var(--text-white);
+            font-size: 0.95rem;
+            font-weight: 600;
+            padding: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
         }
 
-        .no-results {
-            text-align: center;
-            color: var(--text-secondary);
-            grid-column: 1 / -1;
-            padding: 3rem;
+        .subcategory-list {
+            list-style: none;
+            padding-left: 1.8rem;
+        }
+
+        .subcategory-list li a {
+            color: var(--text-gray);
+            text-decoration: none;
+            font-size: 0.85rem;
+            padding: 0.35rem 0;
+            display: block;
+            transition: color 0.2s;
+        }
+
+        .subcategory-list li a:hover {
+            color: var(--accent-cyan);
+        }
+
+        /* 4. MAIN CENTRAL CONTENT DASHBOARD */
+        main {
+            flex: 1;
+            background-color: var(--bg-main);
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        /* Hero / About Banner Layout Box */
+        .about-hero-box {
+            background-color: rgba(17, 28, 48, 0.4);
+            border: 1px solid var(--border-cyan);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .brand-tag {
+            color: var(--accent-cyan);
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.4rem;
+        }
+
+        .about-hero-box h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.6rem;
+        }
+
+        .about-hero-box p {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            max-width: 850px;
+        }
+
+        /* Filtering & Search Bar Subheader */
+        .filter-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .tab-btn {
+            background-color: rgba(17, 28, 48, 0.8);
+            border: 1px solid var(--border-cyan);
+            color: var(--text-gray);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .tab-btn.active {
+            background-color: var(--accent-cyan);
+            color: var(--bg-deep);
+            border-color: var(--accent-cyan);
+            font-weight: 600;
+        }
+
+        .search-box-wrapper {
+            position: relative;
+            flex: 1;
+            max-width: 320px;
+        }
+
+        .search-box-wrapper i {
+            position: absolute;
+            left: 0.8rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-gray);
+            font-size: 0.85rem;
+        }
+
+        .search-input {
+            width: 100%;
+            background-color: rgba(17, 28, 48, 0.8);
+            border: 1px solid var(--border-cyan);
+            border-radius: 6px;
+            padding: 0.45rem 1rem 0.45rem 2.2rem;
+            color: var(--text-white);
+            font-size: 0.85rem;
+        }
+
+        /* Section Headings split */
+        .grid-section-title {
             font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .view-all-link {
+            color: var(--accent-cyan);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        /* 5. MAIN CORE TOOL DIRECTORY GRID LAYOUT */
+        .directory-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.2rem;
+            margin-bottom: 3rem;
+        }
+
+        /* exact match to BOTBOX's generated tool cards */
+        .tool-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-cyan);
+            border-radius: 8px;
+            padding: 1.2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: border-color 0.2s;
+        }
+
+        .tool-card:hover {
+            border-color: var(--border-card-active);
+        }
+
+        .tool-card-top {
+            display: flex;
+            gap: 0.8rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .tool-img-box {
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        /* Specific gradient matches from user generation artifact text handles */
+        .img-purple { background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%); }
+        .img-blue { background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%); }
+        .img-orange { background: linear-gradient(135deg, #ea580c 0%, #f97316 100%); }
+        .img-green { background: linear-gradient(135deg, #16a34a 0%, #22c55e 100%); }
+
+        .tool-identity h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+        }
+
+        .tool-desc-text {
+            color: var(--text-gray);
+            font-size: 0.82rem;
+            line-height: 1.4;
+            margin-bottom: 1rem;
+        }
+
+        .rating-row-info {
+            font-size: 0.75rem;
+            color: var(--text-gray);
+            margin-bottom: 0.8rem;
+        }
+
+        .rating-stars {
+            color: var(--accent-cyan);
+            margin-left: 0.3rem;
+        }
+
+        .card-action-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(26, 54, 93, 0.4);
+            padding-top: 0.8rem;
+        }
+
+        .pricing-model-badge {
+            font-size: 0.75rem;
+            color: var(--text-gray);
+        }
+
+        .action-icon-group {
+            display: flex;
+            gap: 0.6rem;
+        }
+
+        .action-mini-btn {
+            background-color: rgba(26, 54, 93, 0.4);
+            border: 1px solid var(--border-cyan);
+            color: var(--text-gray);
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .action-mini-btn:hover {
+            color: var(--accent-cyan);
+            border-color: var(--accent-cyan);
+        }
+
+        /* 6. EXTENDED ADDITION: EXPLANATORY CHANNEL/VIDEO COMPONENT & TRUSTED VIEWERS BAR */
+        .video-channel-section {
+            background-color: var(--bg-sidebar);
+            border: 1px solid var(--border-cyan);
+            border-radius: 8px;
+            padding: 1.8rem;
+            margin-bottom: 3rem;
+        }
+
+        .video-player-container {
+            position: relative;
+            padding-bottom: 42%; /* Custom wide dimension matching dashboard */
+            height: 0;
+            overflow: hidden;
+            border-radius: 6px;
+            border: 1px solid var(--border-cyan);
+            margin-bottom: 1.5rem;
+            background-color: #000;
+        }
+
+        .video-player-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Trusted Viewers Proof Metrics Row */
+        .trusted-metrics-bar {
+            border-top: 1px solid var(--border-cyan);
+            padding-top: 1.2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .metrics-title {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-gray);
+            font-weight: 600;
+        }
+
+        .metrics-logos-container {
+            display: flex;
+            gap: 3rem;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            opacity: 0.65;
+        }
+
+        .metric-logo-item {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-gray);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        /* 7. RECENTLY ADDED MINIMAL COMPACT CARDS ROW */
+        .compact-row-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .compact-card {
+            background-color: transparent;
+            border: 1px solid var(--border-cyan);
+            border-radius: 8px;
+            padding: 1.2rem;
+        }
+
+        .compact-card-score {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            margin-top: 0.4rem;
+        }
+
+        /* 8. FOOTER STYLING */
+        footer {
+            background-color: var(--bg-deep);
+            border-top: 1px solid var(--border-cyan);
+            padding: 1.5rem;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-gray);
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        .footer-links a {
+            color: var(--text-gray);
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-cyan);
+        }
+
+        /* RESPONSIVE SCALING BREAKPOINTS */
+        @media (max-width: 992px) {
+            .app-layout { flex-direction: column; }
+            aside { width: 100%; }
+            .video-player-container { padding-bottom: 56.25%; }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>AI Tools Directory</h1>
-        <p>Explore 100 curated AI platforms to supercharge your workflow</p>
+        <div class="header-left">
+            <a href="#" class="brand-logo">
+                <svg class="logo-icon-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M50 25 V12 M35 12 C42 12 45 18 50 18 C55 18 58 12 65 12" stroke="#00d2ff" stroke-width="4" stroke-linecap="round"/>
+                    <path d="M25 40 L50 48 L75 40 L75 70 L50 82 L25 70 Z" stroke="#00d2ff" stroke-width="4" fill="none" stroke-linejoin="round"/>
+                    <path d="M50 48 L50 82" stroke="#00d2ff" stroke-width="3"/>
+                    <path d="M25 40 L50 32 L75 40" stroke="#00d2ff" stroke-width="3" fill="none"/>
+                    <circle cx="40" cy="56" r="3" fill="#00d2ff"/>
+                    <circle cx="60" cy="56" r="3" fill="#00d2ff"/>
+                    <ellipse cx="50" cy="92" rx="15" ry="2.5" fill="#00d2ff" opacity="0.8"/>
+                </svg>
+                <div class="brand-name">BOTBOX</div>
+            </a>
+            
+            <ul class="nav-menu">
+                <li><a href="#" class="nav-link active"><i class="fa-solid fa-layer-group"></i> Categories</a></li>
+                <li><a href="#" class="nav-link"><i class="fa-regular fa-heart"></i> Favorites</a></li>
+                <li><a href="#" class="nav-link"><i class="fa-solid fa-magnifying-glass"></i> Search</a></li>
+            </ul>
+        </div>
+
+        <div class="header-right">
+            <button class="btn-text">Login</button>
+            <button class="btn-outline"><i class="fa-solid fa-arrow-right-to-bracket"></i> Login</button>
+        </div>
     </header>
 
-    <div class="controls-container">
-        <input type="text" id="searchBar" class="search-bar" placeholder="Search tools by name, description, or keyword...">
-        <div class="filter-buttons" id="filterContainer">
-            <!-- Populated dynamically via JS -->
-        </div>
+    <div class="app-layout">
+        
+        <aside>
+            <button class="sidebar-btn-all"><i class="fa-solid fa-border-all"></i> All AI Tools</button>
+            
+            <div class="category-group">
+                <div class="category-title"><i class="fa-regular fa-comment-dots" style="color:var(--accent-cyan);"></i> Chatbots</div>
+                <ul class="subcategory-list">
+                    <li><a href="#">Chatbots</a></li>
+                    <li><a href="#">Content Creation</a></li>
+                </ul>
+            </div>
+
+            <div class="category-group">
+                <div class="category-title"><i class="fa-regular fa-pen-to-square" style="color:var(--accent-cyan);"></i> Content Creation</div>
+                <ul class="subcategory-list">
+                    <li><a href="#">Content Creation</a></li>
+                </ul>
+            </div>
+
+            <div class="category-group">
+                <div class="category-title"><i class="fa-regular fa-image" style="color:var(--accent-cyan);"></i> Image Generation</div>
+                <ul class="subcategory-list">
+                    <li><a href="#">Image Generation</a></li>
+                    <li><a href="#">Image Generation</a></li>
+                </ul>
+            </div>
+
+            <div class="category-group">
+                <div class="category-title"><i class="fa-solid fa-bullhorn" style="color:var(--accent-cyan);"></i> Marketing Automation</div>
+                <ul class="subcategory-list">
+                    <li><a href="#">Marketing</a></li>
+                    <li><a href="#">Marketing</a></li>
+                    <li><a href="#">Forecasting</a></li>
+                    <li><a href="#">Marketing Inside</a></li>
+                </ul>
+            </div>
+
+            <div class="category-group">
+                <div class="category-title"><i class="fa-solid fa-chart-pie" style="color:var(--accent-cyan);"></i> Data Analysis</div>
+                <ul class="subcategory-list">
+                    <li><a href="#">Data Analysis</a></li>
+                    <li><a href="#">Data Analysis</a></li>
+                </ul>
+            </div>
+
+            <div class="category-group">
+                <div class="category-title"><i class="fa-solid fa-code" style="color:var(--accent-cyan);"></i> Developer API</div>
+                <ul class="subcategory-list">
+                    <li><a href="#">Asatbots</a></li>
+                    <li><a href="#">Chatbots</a></li>
+                    <li><a href="#">Seasons</a></li>
+                    <li><a href="#">PDK</a></li>
+                    <li><a href="#">Pricing</a></li>
+                    <li><a href="#">Developer API</a></li>
+                    <li><a href="#">Tennly API</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <main>
+            
+            <section class="about-hero-box">
+                <div class="brand-tag">BOTBOX</div>
+                <h1>BOTBOX AI: Your Intelligent Tools Directory</h1>
+                <p>Curated AI tools used to break workflow limitations and train advanced intelligence metrics, factors, optimization structures, and automated AI software ecosystems instantly.</p>
+            </section>
+
+            <section class="filter-row">
+                <div class="filter-tabs">
+                    <button class="tab-btn active"><i class="fa-solid fa-bolt"></i> New</button>
+                    <button class="tab-btn"><i class="fa-solid fa-rotate"></i> Updated</button>
+                    <button class="tab-btn"><i class="fa-solid fa-circle-check"></i> Verified</button>
+                </div>
+                <div class="search-box-wrapper">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" class="search-input" placeholder="Search...">
+                </div>
+            </section>
+
+            <section class="directory-grid">
+                
+                <div class="tool-card">
+                    <div>
+                        <div class="tool-card-top">
+                            <div class="tool-img-box img-purple"><i class="fa-solid fa-signature"></i></div>
+                            <div class="tool-identity">
+                                <h3>Synthetix Writer</h3>
+                                <div class="rating-row-info">BOTBOX Rating <span class="rating-stars">★★★★★</span></div>
+                            </div>
+                        </div>
+                        <div class="tool-desc-text">Synthetix Writer is a system asset specialized in extreme workflow acceleration and continuous text transformation models.</div>
+                    </div>
+                    <div class="card-action-bar">
+                        <div class="pricing-model-badge">Freemium</div>
+                        <div class="action-icon-group">
+                            <button class="action-mini-btn"><i class="fa-regular fa-thumbs-up"></i> 1</button>
+                            <button class="action-mini-btn"><i class="fa-regular fa-thumbs-down"></i></button>
+                            <button class="action-mini-btn"><i class="fa-regular fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tool-card">
+                    <div>
+                        <div class="tool-card-top">
+                            <div class="tool-img-box img-blue"><i class="fa-solid fa-vector-square"></i></div>
+                            <div class="tool-identity">
+                                <h3>VectorArt Pro</h3>
+                                <div class="rating-row-info">BOTBOX Rating <span class="rating-stars">★★★★★</span></div>
+                            </div>
+                        </div>
+                        <div class="tool-desc-text">VectorArt Pro is a design companion tailored to generating clean scalar distributions, vector icons, and programmatic assets.</div>
+                    </div>
+                    <div class="card-action-bar">
+                        <div class="pricing-model-badge">Freemium</div>
+                        <div class="action-icon-group">
+                            <button class="action-mini-btn"><i class="fa-regular fa-thumbs-up"></i> 1</button>
+                            <button class="action-mini-btn"><i class="fa-regular fa-thumbs-down"></i></button>
+                            <button class="action-mini-btn"><i class="fa-regular fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tool-card">
+                    <div>
+                        <div class="tool-card-top">
+                            <div class="tool-img-box img-orange"><i class="fa-solid fa-database"></i></div>
+                            <div class="tool-identity">
+                                <h3>DataMinr AI</h3>
+                                <div class="rating-row-info">BOTBOX Rating <span class="rating-stars">★★★★★</span></div>
+                            </div>
+                        </div>
+                        <div class="tool-desc-text">DataMinr AI aggregates multi-dimensional analytics pipelines, predicting trend vectors across complex data streams.</div>
+                    </div>
+                    <div class="card-action-bar">
+                        <div class="pricing-model-badge">Freemium</div>
+                        <div class="action-icon-group">
+                            <button class="action-mini-btn"><i class="fa-regular fa-thumbs-up"></i> 1</button>
+                            <button class="action-mini-btn"><i class="fa-regular fa-thumbs-down"></i></button>
+                            <button class="action-mini-btn"><i class="fa-regular fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tool-card">
+                    <div>
+                        <div class="tool-card-top">
+                            <div class="tool-img-box img-green"><i class="fa-solid fa-network-wired"></i></div>
+                            <div class="tool-identity">
+                                <h3>DataMime AI</h3>
+                                <div class="rating-row-info">BOTBOX Rating <span class="rating-stars">★★★★★</span></div>
+                            </div>
+                        </div>
+                        <div class="tool-desc-text">DataMime AI is configured for sorting semantic associations and deep parsing marketing optimization modules.</div>
+                    </div>
+                    <div class="card-action-bar">
+                        <div class="pricing-model-badge">Freemium</div>
+                        <div class="action-icon-group">
+                            <button class="action-mini-btn"><i class="fa-regular fa-thumbs-up"></i> 0</button>
+                            <button class="action-mini-btn"><i class="fa-regular fa-thumbs-down"></i></button>
+                            <button class="action-mini-btn"><i class="fa-regular fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tool-card">
+                    <div>
+                        <div class="tool-card-top">
+                            <div class="tool-img-box img-purple"><i class="fa-solid fa-cloud-bolt"></i></div>
+                            <div class="tool-identity">
+                                <h3>PowerStose</h3>
+                                <div class="rating-row-info">BOTBOX Rating <span class="rating-stars">★★★★★</span></div>
+                            </div>
+                        </div>
+                        <div class="tool-desc-text">Robust computing engine providing consistent system orchestration layers across distributed microservices.</div>
+                    </div>
+                    <div class="card-action-bar">
+                        <div class="pricing-model-badge">Freemium</div>
+                        <div class="action-icon-group">
+                            <button class="action-mini-btn"><i class="fa-regular fa-thumbs-up"></i> 0</button>
+                            <button class="action-mini-btn"><i class="fa-regular fa-thumbs-down"></i></button>
+                            <button class="action-mini-btn"><i class="fa-regular fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tool-card">
+                    <div>
+                        <div class="tool-card-top">
+                            <div class="tool-img-box img-blue"><i class="fa-solid fa-shield-halved"></i></div>
+                            <div class="tool-identity">
+                                <h3>Rooten AI</h3>
+                                <div class="rating-row-info">BOTBOX Rating <span class="rating-stars">★★★★★</span></div>
+                            </div>
+                        </div>
+                        <div class="tool-desc-text">Data protection layer providing analytical framework shielding, source authentication, and active secure routines.</div>
+                    </div>
+                    <div class="card-action-bar">
+                        <div class="pricing-model-badge">Freemium</div>
+                        <div class="action-icon-group">
+                            <button class="action-mini-btn"><i class="fa-regular fa-thumbs-up"></i> 0</button>
+                            <button class="action-mini-btn"><i class="fa-regular fa-thumbs-down"></i></button>
+                            <button class="action-mini-btn"><i class="fa-regular fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <div class="grid-section-title">
+                <div><i class="fa-solid fa-circle-play" style="color:var(--accent-cyan);"></i> Video Feature Explorer Channel</div>
+            </div>
+
+            <section class="video-channel-section">
+                <div class="video-player-container">
+                    <iframe 
+                        src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                        title="BOTBOX Feature Channel Presentation Video" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+
+                <div class="trusted-metrics-bar">
+                    <div class="metrics-title">Trusted By Active Viewers & Engineering Teams At</div>
+                    <div class="metrics-logos-container">
+                        <div class="metric-logo-item"><i class="fa-brands fa-google"></i> Google</div>
+                        <div class="metric-logo-item"><i class="fa-brands fa-microsoft"></i> Microsoft</div>
+                        <div class="metric-logo-item"><i class="fa-brands fa-meta"></i> Meta</div>
+                        <div class="metric-logo-item"><i class="fa-brands fa-apple"></i> Apple</div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="grid-section-title">
+                <div>Recently Added BOTBOX Tools</div>
+                <a href="#" class="view-all-link">View All</a>
+            </div>
+
+            <section class="compact-row-grid">
+                <div class="compact-card">
+                    <div class="tool-card-top">
+                        <div class="tool-img-box img-purple"><i class="fa-solid fa-signature"></i></div>
+                        <div class="tool-identity">
+                            <h3>Synthetix Writer</h3>
+                            <div class="rating-row-info">BOTBOX Rating</div>
+                        </div>
+                    </div>
+                    <div class="compact-card-score">4.5/5</div>
+                    <div class="pricing-model-badge" style="margin-top:0.4rem; text-align:right;">Freemium</div>
+                </div>
+
+                <div class="compact-card">
+                    <div class="tool-card-top">
+                        <div class="tool-img-box img-blue"><i class="fa-solid fa-vector-square"></i></div>
+                        <div class="tool-identity">
+                            <h3>VectorArt Pro</h3>
+                            <div class="rating-row-info">BOTBOX Rating</div>
+                        </div>
+                    </div>
+                    <div class="compact-card-score">4.5/5</div>
+                    <div class="pricing-model-badge" style="margin-top:0.4rem; text-align:right;">Freemium</div>
+                </div>
+
+                <div class="compact-card">
+                    <div class="tool-card-top">
+                        <div class="tool-img-box img-orange"><i class="fa-solid fa-database"></i></div>
+                        <div class="tool-identity">
+                            <h3>DataMinr AI</h3>
+                            <div class="rating-row-info">BOTBOX Rating</div>
+                        </div>
+                    </div>
+                    <div class="compact-card-score">4.5/5</div>
+                    <div class="pricing-model-badge" style="margin-top:0.4rem; text-align:right;">Freemium</div>
+                </div>
+            </section>
+
+        </main>
     </div>
 
-    <main>
-        <!-- FREE / FREEMIUM GRID -->
-        <section class="directory-section">
-            <h2 class="section-title">Free & Freemium Tools <span class="item-count" id="freeCount">0</span></h2>
-            <div class="tools-grid" id="freeToolsGrid"></div>
-        </section>
+    <footer>
+        <div class="footer-links">
+            <a href="#">About BOTBOX</a>
+            <a href="#">Submit Tool</a>
+            <a href="#">Privacy</a>
+        </div>
+        <div>Copyright © BOTBOX. All rights reserved.</div>
+    </footer>
 
-        <!-- PAID / PREMIUM GRID -->
-        <section class="directory-section">
-            <h2 class="section-title">Premium & Paid Tools <span class="item-count" id="paidCount">0</span></h2>
-            <div class="tools-grid" id="paidToolsGrid"></div>
-        </section>
-    </main>
-
-    <script>
-        // Complete 100 Curated AI Tools Dataset
-        const toolDataset = [
-            // --- MARKETING ---
-            { name: "Jasper AI", description: "Comprehensive marketing platform for writing blog posts, ad variants, and maintaining brand voice consistency.", pricing: "Paid", category: "Marketing", link: "https://www.jasper.ai" },
-            { name: "Copy.ai", description: "Automates multi-step marketing workflows and generates rapid brand positioning and email copy lines.", pricing: "Freemium", category: "Marketing", link: "https://www.copy.ai" },
-            { name: "HubSpot AI", description: "Embedded automation features for CRM, drafting promotional sequences, and scoring marketing leads.", pricing: "Freemium", category: "Marketing", link: "https://www.hubspot.com" },
-            { name: "ManyChat", description: "AI-driven chat system to automate direct messaging marketing across Instagram, WhatsApp, and Facebook.", pricing: "Freemium", category: "Marketing", link: "https://manychat.com" },
-            { name: "AdCreative.ai", description: "Generates high-converting graphic ad layouts and text options backed by performance algorithms.", pricing: "Paid", category: "Marketing", link: "https://www.adcreative.ai" },
-            { name: "Albert AI", description: "Autonomous digital advertising manager that optimizes campaigns across Google, Facebook, and Bing.", pricing: "Paid", category: "Marketing", link: "https://albert.ai" },
-            { name: "Mutiny", description: "No-code web optimization platform that personalizes website landing pages for specific marketing traffic.", pricing: "Paid", category: "Marketing", link: "https://www.mutinyhq.com" },
-            { name: "Smartly.io", description: "Scales paid advertising asset creation and automates budget allocation adjustments dynamically.", pricing: "Paid", category: "Marketing", link: "https://www.smartly.io" },
-            { name: "Brand24", description: "Social listening platform that crawls mentions and evaluates brand public sentiment trends using AI.", pricing: "Paid", category: "Marketing", link: "https://brand24.com" },
-            { name: "Feedly Leo", description: "AI research companion that filters news feeds to surface market developments and trend insights.", pricing: "Paid", category: "Marketing", link: "https://feedly.com" },
-            { name: "Predis.ai", description: "Generates complete social media posts with visuals, text copy, and hashtag recommendations from a text prompt.", pricing: "Freemium", category: "Marketing", link: "https://predis.ai" },
-            { name: "Ocoya", description: "All-in-one suite to schedule, analyze, and draft visual social media microcopy with built-in AI support.", pricing: "Paid", category: "Marketing", link: "https://www.ocoya.com" },
-            { name: "Lately", description: "Repurposes long podcasts or long-form documents into dozens of distinct social media punchlines.", pricing: "Paid", category: "Marketing", link: "https://www.lately.ai" },
-            { name: "Sprout Social AI", description: "Advanced customer feedback sentiment engine and automated reply assistant built for enterprise social teams.", pricing: "Paid", category: "Marketing", link: "https://sproutsocial.com" },
-            { name: "MarketMuse", description: "Audits entire websites to identify topical gaps and optimize marketing material structure for industry authority.", pricing: "Paid", category: "Marketing", link: "https://www.marketmuse.com" },
-            { name: "Phrasee", description: "Generates language options for transactional emails and SMS copy to drive user action.", pricing: "Paid", category: "Marketing", link: "https://phrasee.co" },
-            { name: " Seventh Sense", description: "Integrates with internal systems to predict optimal individual email delivery times for users.", pricing: "Paid", category: "Marketing", link: "https://www.theseventhsense.com" },
-
-            // --- SEO ---
-            { name: "Surfer SEO", description: "Live content structuring system that compares real-time writing against current organic search competitors.", pricing: "Paid", category: "SEO", link: "https://surferseo.com" },
-            { name: "Semrush AI", description: "Advanced search dashboard featuring keyword clustering, SERP forecasting, and article gap indicators.", pricing: "Paid", category: "SEO", link: "https://www.semrush.com" },
-            { name: "Ahrefs AI Tools", description: "Extracts data pointers to create blog frameworks, metadata variations, and intent discovery rules.", pricing: "Paid", category: "SEO", link: "https://ahrefs.com" },
-            { name: "Frase", description: "Researches Google competitors automatically to construct detailed, highly optimized long-form content briefs.", pricing: "Paid", category: "SEO", link: "https://www.frase.io" },
-            { name: "Clearscope", description: "Highly clear grading system analyzing text completeness to maximize organic visibility.", pricing: "Paid", category: "SEO", link: "https://www.clearscope.io" },
-            { name: "Perplexity AI", description: "Source-backed exploratory research tool that replaces traditional web search layout with compiled, cited reports.", pricing: "Freemium", category: "SEO", link: "https://www.perplexity.ai" },
-            { name: "QuillBot", description: "Paraphrasing platform that refines sentence structures, changes tone profiles, and checks text authenticity.", pricing: "Freemium", category: "SEO", link: "https://quillbot.com" },
-            { name: "InLinks", description: "Automates semantic internal linking structures and generates schema markup strings based on topic entities.", pricing: "Paid", category: "SEO", link: "https://inlinks.net" },
-            { name: "Scalenut", description: "Managed workflow platform assisting research from initial cluster selection down to finalized content generation.", pricing: "Paid", category: "SEO", link: "https://www.scalenut.com" },
-            { name: "WriterZen", description: "Discovers low-competition keywords and organizes search intent profiles into functional production tracks.", pricing: "Paid", category: "SEO", link: "https://writerzen.net" },
-            { name: "Outranking", description: "Data-driven workflow application focusing on structured meta details, factual integrity alignment, and alignment optimization.", pricing: "Paid", category: "SEO", link: "https://www.outranking.io" },
-            { name: "Alli AI", description: "Enables programmatic site optimization by deploying on-page recommendations without direct source modifications.", pricing: "Paid", category: "SEO", link: "https://www.alliai.com" },
-            { name: "WordLift", description: "Translates human-readable blogs into machine-optimized structured data layers using graph networks.", pricing: "Paid", category: "SEO", link: "https://wordlift.io" },
-            { name: "CanIRank", description: "SEO advisor providing core prescriptive guidance on specific actions required to beat top competitors.", pricing: "Freemium", category: "SEO", link: "https://www.canirank.com" },
-            { name: "Neuraltext", description: "Combines keyword discovery, search result evaluation, and layout writing into one continuous application.", pricing: "Paid", category: "SEO", link: "https://www.neuraltext.com" },
-            { name: "GrowthBar", description: "Chrome extension and dashboard that extracts formatting paths, word parameters, and metadata insights inside blogs.", pricing: "Paid", category: "SEO", link: "https://www.growthbarhq.com" },
-
-            // --- PRODUCTIVITY ---
-            { name: "ChatGPT", description: "Versatile, all-purpose assistant with reasoning capabilities for planning, calculations, and general drafting.", pricing: "Freemium", category: "Productivity", link: "https://chatgpt.com" },
-            { name: "Claude AI", description: "Deep thinking partner renowned for nuanced writing styles, code reviews, and long-context text analysis.", pricing: "Freemium", category: "Productivity", link: "https://claude.ai" },
-            { name: "Google Gemini", description: "Multimodal suite deeply connected into ecosystem files, sheets, and web information pathways.", pricing: "Freemium", category: "Productivity", link: "https://gemini.google.com" },
-            { name: "Notion AI", description: "Embedded workspace assistant that instantly extracts actions, refines layout structures, and drafts summaries.", pricing: "Paid", category: "Productivity", link: "https://www.notion.so" },
-            { name: "Grammarly", description: "Contextual assistant that reviews clarity settings, tone expressions, and document structural flaws.", pricing: "Freemium", category: "Productivity", link: "https://www.grammarly.com" },
-            { name: "NotebookLM", description: "Google research hub that organizes local documents into structured summaries, explanations, and audio overviews.", pricing: "Free", category: "Productivity", link: "https://notebooklm.google" },
-            { name: "Fathom AI", description: "Automated call assistant that records web meetings to output key action steps and conversation logs.", pricing: "Freemium", category: "Productivity", link: "https://fathom.video" },
-            { name: "Gamma App", description: "Transforms notes or text summaries into clean, beautifully formatted presentations, slide decks, and layouts.", pricing: "Freemium", category: "Productivity", link: "https://gamma.app" },
-            { name: "Fireflies.ai", description: "Crawls multiple internal communication apps to record audio, track individual speakers, and extract tasks.", pricing: "Freemium", category: "Productivity", link: "https://fireflies.ai" },
-            { name: "Otter.ai", description: "Real-time speech transcription utility built to handle business discussions, training sessions, and text outlines.", pricing: "Freemium", category: "Productivity", link: "https://otter.ai" },
-            { name: "Taskade", description: "Combines classic task tracking workflows with customized multi-agent networks to manage operations.", pricing: "Freemium", category: "Productivity", link: "https://www.taskade.com" },
-            { name: "SaneBox", description: "Monitors personal email inbox behavior to separate unimportant distributions into secondary folders.", pricing: "Paid", category: "Productivity", link: "https://www.sanebox.com" },
-            { name: "Mem.ai", description: "Self-organizing workspace note environment that links random items into connected thought paths automatically.", pricing: "Freemium", category: "Productivity", link: "https://mem.ai" },
-            { name: "Clockwise", description: "Optimizes personal and team scheduling parameters to create continuous stretches of uninterrupted focus time.", pricing: "Freemium", category: "Productivity", link: "https://www.getclockwise.com" },
-            { name: "Motion", description: "Intelligent calendar manager that automatically schedules, builds, and shifts daily work based on task priority.", pricing: "Paid", category: "Productivity", link: "https://www.usemotion.com" },
-            { name: "Xembly", description: "Virtual chief of staff utility handling calendar configurations, meeting feedback logs, and chore sequencing.", pricing: "Paid", category: "Productivity", link: "https://www.xembly.com" },
-            { name: "Rewind AI", description: "Local background recording client allowing users to search visual actions and audio segments they encountered.", pricing: "Freemium", category: "Productivity", link: "https://www.rewind.ai" },
-
-            // --- DESIGN ---
-            { name: "Midjourney", description: "Aesthetic prompt-driven visual generation environment built to yield highly conceptual and realistic imagery.", pricing: "Paid", category: "Design", link: "https://www.midjourney.com" },
-            { name: "Canva Magic Studio", description: "Accessible creator package offering easy text-to-image conversions, element replacement, and layout edits.", pricing: "Freemium", category: "Design", link: "https://www.canva.com" },
-            { name: "Figma Make", description: "Prompt-to-interface tool that translates design descriptions into structured prototypes and editable layouts.", pricing: "Paid", category: "Design", link: "https://www.figma.com" },
-            { name: "Ideogram", description: "Advanced text-to-image asset engine specialized in rendering precise, legible typography strings inside visuals.", pricing: "Freemium", category: "Design", link: "https://ideogram.ai" },
-            { name: "Adobe Firefly", description: "Commercially indemnified design ecosystem trained entirely on safe, licensed media assets for business use.", pricing: "Freemium", category: "Design", link: "https://www.adobe.com" },
-            { name: "Magnific AI", description: "Generative upscaler application that inserts ultra-realistic micro-texture and clarity enhancements during resolution changes.", pricing: "Paid", category: "Design", link: "https://magnific.ai" },
-            { name: "Looka", description: "Interactive branding platform that outputs customized corporate logo variations, business cards, and typography packages.", pricing: "Paid", category: "Design", link: "https://looka.com" },
-            { name: "Photoroom", description: "Rapid background separation and studio lighting tool designed for e-commerce catalog presentation layouts.", pricing: "Freemium", category: "Design", link: "https://www.photoroom.com" },
-            { name: "Uizard", description: "Converts rough hand-drawn paper concepts into full, click-functional app interfaces within moments.", pricing: "Freemium", category: "Design", link: "https://uizard.io" },
-            { name: "Vectary", description: "No-code 3D scene configurator that simplifies product asset mockup placement and deployment.", pricing: "Freemium", category: "Design", link: "https://www.vectary.com" },
-            { name: "Krea AI", description: "Real-time canvas layout tool that instantly translates crude geometry sketches into polished creative concepts.", pricing: "Freemium", category: "Design", link: "https://www.krea.ai" },
-            { name: "Khroma", description: "Personalized search tool that identifies beautiful, harmonious color palettes based on user trait preferences.", pricing: "Free", category: "Design", link: "https://www.khroma.co" },
-            { name: "Remove.bg", description: "Single-purpose, instant object background removal utility powered by advanced segmentation rules.", pricing: "Freemium", category: "Design", link: "https://www.remove.bg" },
-            { name: "Leonardo.ai", description: "Production asset platform packed with fine control weights, style persistence variables, and design nodes.", pricing: "Freemium", category: "Design", link: "https://leonardo.ai" },
-            { name: "Flair.ai", description: "Drag-and-drop merchandise scene builder that constructs editorial product background environments.", pricing: "Freemium", category: "Design", link: "https://flair.ai" },
-            { name: "Recraft AI", description: "Vector generation studio allowing designers to build infinitely scalable icons, layouts, and brand illustrations.", pricing: "Freemium", category: "Design", link: "https://www.recraft.ai" },
-
-            // --- VIDEO & AUDIO ---
-            { name: "ElevenLabs", description: "Industry-standard audio platform for synthetic vocal cloning, realistic sound effects, and multilingual speech.", pricing: "Freemium", category: "Video", link: "https://elevenlabs.io" },
-            { name: "Google Veo", description: "Advanced cinema video tool that executes continuous camera trajectories, prompt tracking, and clear textures.", pricing: "Freemium", category: "Video", link: "https://veo.google" },
-            { name: "Runway Gen-3 Alpha", description: "Creative workspace that generates professional visual compositions, structural shifts, and scene loops.", pricing: "Freemium", category: "Video", link: "https://runwayml.com" },
-            { name: "Synthesia", description: "Enterprise presentation platform that translates standard technical scripts into professional virtual human presentations.", pricing: "Paid", category: "Video", link: "https://www.synthesia.io" },
-            { name: "HeyGen", description: "Hyper-realistic virtual presenter setup designed for rapid local adjustments and marketing outreach scripts.", pricing: "Freemium", category: "Video", link: "https://www.heygen.com" },
-            { name: "Descript", description: "Interactive audio and video workspace that changes media tracks by editing corresponding transcription words.", pricing: "Freemium", category: "Video", link: "https://www.descript.com" },
-            { name: "OpusClip", description: "Extracts short, high-engagement viral clips from long video material with automated subtitle generation.", pricing: "Freemium", category: "Video", link: "https://www.opus.pro" },
-            { name: "Luma Dream Machine", description: "Rapid animation physics workspace that simulates realistic motion, lighting variations, and structural continuity.", pricing: "Freemium", category: "Video", link: "https://lumalabs.ai" },
-            { name: "LTX Studio", description: "Multi-shot scene director tool built to coordinate script timelines, character tracking, and layout framing.", pricing: "Freemium", category: "Video", link: "https://ltx.io" },
-            { name: "Invideo AI", description: "Transforms basic script statements into structured video sequences complete with narration and visuals.", pricing: "Freemium", category: "Video", link: "https://invideo.io" },
-            { name: "Sora (OpenAI)", description: "Premium, highly realistic simulation environment generating cinematic continuity blocks up to a full minute long.", pricing: "Paid", category: "Video", link: "https://openai.com/sora" },
-            { name: "Pictory", description: "Crawls text-heavy business whitepapers and documentation to build short, shareable informational social highlights.", pricing: "Paid", category: "Video", link: "https://pictory.ai" },
-            { name: "Veed.io", description: "Browser editor providing simple translation features, subtitles formatting, and audio cleaning modules.", pricing: "Freemium", category: "Video", link: "https://www.veed.io" },
-            { name: "Kling AI", description: "High-fidelity cinematic generation system capable of building sweeping scenic views and natural interactions.", pricing: "Freemium", category: "Video", link: "https://klingai.com" },
-            { name: "Higgsfield", description: "Consolidates multiple top generation layouts into a single, unified workflow pipeline.", pricing: "Paid", category: "Video", link: "https://higgsfield.ai" },
-            { name: "PlayHT", description: "Massive library of realistic voices used for audiobooks, narration tracks, and dynamic speech deployment.", pricing: "Freemium", category: "Video", link: "https://play.ht" },
-            { name: "Suno AI", description: "Generates complete musical arrangements, vocal performances, and rhythmic tracks from a raw descriptive prompt.", pricing: "Freemium", category: "Video", link: "https://suno.com" },
-
-            // --- CODING ---
-            { name: "Cursor", description: "AI-native code editor fork of VS Code featuring complete workspace refactoring, inline questions, and chat.", pricing: "Freemium", category: "Coding", link: "https://www.cursor.com" },
-            { name: "GitHub Copilot", description: "Ubiquitous development companion providing multi-line code completions and context logic insights.", pricing: "Freemium", category: "Coding", link: "https://github.com/features/copilot" },
-            { name: "Claude Code", description: "Advanced terminal-based interface that scans codebases, runs verification checks, and fixes software bugs.", pricing: "Paid", category: "Coding", link: "https://claude.ai" },
-            { name: "Lovable", description: "App builder that generates complete, production-ready React infrastructure directly from simple text requirements.", pricing: "Paid", category: "Coding", link: "https://lovable.dev" },
-            { name: "Windsurf", description: "Predictive development system pairing multi-file code editing mechanics with accessible free tiers.", pricing: "Freemium", category: "Coding", link: "https://codeium.com/windsurf" },
-            { name: "v0 by Vercel", description: "Generates clean, production-ready Next.js frontend user components from text or layout snapshots.", pricing: "Freemium", category: "Coding", link: "https://v0.dev" },
-            { name: "Bolt.new", description: "Instant in-browser environment setup that builds, hosts, and monitors responsive web applications.", pricing: "Freemium", category: "Coding", link: "https://bolt.new" },
-            { name: "Replit Agent", description: "Autonomous full-stack development assistant that connects databases, sets up authentication, and deploys directly.", pricing: "Paid", category: "Coding", link: "https://replit.com" },
-            { name: "DataLab", description: "Interactive data science platform that translates plain language queries into SQL strings and Python graphics.", pricing: "Freemium", category: "Coding", link: "https://www.datacamp.com/datalab" },
-            { name: "Codeium", description: "Blazing fast auto-completion environment and search companion supporting dozens of software languages.", pricing: "Freemium", category: "Coding", link: "https://codeium.com" },
-            { name: "Tabnine", description: "Private, secure development assistant focusing on strict organizational compliance and protected source structures.", pricing: "Paid", category: "Coding", link: "https://www.tabnine.com" },
-            { name: "Amazon Q Developer", description: "AWS cloud optimization workspace that provides suggestions for software updates and infrastructure management.", pricing: "Freemium", category: "Coding", link: "https://aws.amazon.com/q/developer" },
-            { name: "Sourcery", description: "Automated refactoring tool that scans open code lines to suggest clean configurations and reduce complexity.", pricing: "Freemium", category: "Coding", link: "https://sourcery.ai" },
-            { name: "Blackbox AI", description: "Specialized engineering companion optimized for rapid repository search, code extraction, and indexing.", pricing: "Freemium", category: "Coding", link: "https://www.blackbox.ai" },
-            { name: "MutableAI", description: "Accelerates enterprise code documentation pipelines and builds comprehensive wiki references automatically.", pricing: "Paid", category: "Coding", link: "https://mutable.ai" },
-            { name: "CodiumAI", description: "Analyzes software execution pathways to generate comprehensive unit tests and catch code edge cases.", pricing: "Freemium", category: "Coding", link: "https://www.codium.ai" }
-        ];
-
-        // Readable categories mapping
-        const readableCategories = {
-            "all": "🌐 Show All Tools",
-            "Marketing": "📈 Marketing",
-            "SEO": "🔍 SEO & Copy",
-            "Productivity": "⚡ Productivity",
-            "Design": "🎨 Design",
-            "Video": "🎬 Video & Audio",
-            "Coding": "💻 Coding & Dev"
-        };
-
-        let activeCategoryFilter = "all";
-
-        // Initialize Filter Buttons
-        function initFilters() {
-            const container = document.getElementById("filterContainer");
-            container.innerHTML = "";
-            
-            Object.keys(readableCategories).forEach(key => {
-                const btn = document.createElement("button");
-                btn.className = `filter-btn ${key === activeCategoryFilter ? 'active' : ''}`;
-                btn.innerText = readableCategories[key];
-                btn.addEventListener("click", () => {
-                    document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
-                    btn.classList.add("active");
-                    activeCategoryFilter = key;
-                    renderDirectory();
-                });
-                container.appendChild(btn);
-            });
-        }
-
-        // Render Directory Lists
-        function renderDirectory() {
-            const searchQuery = document.getElementById("searchBar").value.toLowerCase();
-            const freeGrid = document.getElementById("freeToolsGrid");
-            const paidGrid = document.getElementById("paidToolsGrid");
-
-            // Clear previous elements
-            freeGrid.innerHTML = "";
-            paidGrid.innerHTML = "";
-
-            let freeCount = 0;
-            let paidCount = 0;
-
-            toolDataset.forEach(tool => {
-                // Category validation check
-                const matchesCategory = activeCategoryFilter === "all" || tool.category === activeCategoryFilter;
-                
-                // Search validation check
-                const matchesSearch = tool.name.toLowerCase().includes(searchQuery) || 
-                                      tool.description.toLowerCase().includes(searchQuery) ||
-                                      tool.category.toLowerCase().includes(searchQuery);
-
-                if (matchesCategory && matchesSearch) {
-                    // Create tool card element
-                    const card = document.createElement("div");
-                    card.className = "tool-card";
-                    
-                    const isPremium = tool.pricing.toLowerCase() === 'paid';
-                    const tagClass = isPremium ? 'tag-paid' : 'tag-free';
-                    const displayPricing = isPremium ? 'Premium' : tool.pricing;
-
-                    card.innerHTML = `
-                        <div>
-                            <div class="tool-header">
-                                <div class="tool-name">${tool.name}</div>
-                                <span class="tool-tag ${tagClass}">${displayPricing}</span>
-                            </div>
-                            <p class="tool-desc">${tool.description}</p>
-                        </div>
-                        <div class="tool-footer">
-                            <span class="tool-cat">${tool.category}</span>
-                            <a href="${tool.link}" target="_blank" class="tool-link">Visit Website ↗</a>
-                        </div>
-                    `;
-
-                    // Route card to correct layout section
-                    if (isPremium) {
-                        paidGrid.appendChild(card);
-                        paidCount++;
-                    } else {
-                        freeGrid.appendChild(card);
-                        freeCount++;
-                    }
-                }
-            });
-
-            // Handle empty results display
-            if (freeCount === 0) {
-                freeGrid.innerHTML = `<div class="no-results">No free or freemium tools match your current search criteria.</div>`;
-            }
-            if (paidCount === 0) {
-                paidGrid.innerHTML = `<div class="no-results">No premium tools match your current search criteria.</div>`;
-            }
-
-            // Update item counters layout values
-            document.getElementById("freeCount").innerText = freeCount;
-            document.getElementById("paidCount").innerText = paidCount;
-        }
-
-        // Add Input Listener for Real-time Search functionality
-        document.getElementById("searchBar").addEventListener("input", renderDirectory);
-
-        // Run Initial Setup Loops
-        initFilters();
-        renderDirectory();
-    </script>
 </body>
 </html>
