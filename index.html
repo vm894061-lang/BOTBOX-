@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Tools Directory - Find Free & Paid Software</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased">
+
+    <!-- Header / Navbar Banner -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-xs">
+        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-9 h-9 bg-indigo-600 rounded-xl flex items-center justify-center text-white font-black text-xl">A</div>
+                <span class="text-xl font-extrabold tracking-tight bg-gradient-to-r cb from-indigo-600 to-blue-500 bg-clip-text text-transparent">AI Tool Finder</span>
+            </div>
+            <div class="text-sm font-medium text-slate-500 hidden sm:block">
+                Your Ultimate Free AI Directory
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area Grid -->
+    <div class="max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <!-- LEFT COLUMN: Search & Core Database Display (8 Rows Wide on Desktop) -->
+        <main class="lg:col-span-8 space-y-6">
+            
+            <!-- AIXPLORIA-STYLE HERO SEARCH COLUMN -->
+            <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs text-center space-y-4">
+                <h1 class="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Search Over Best AI Tools Available</h1>
+                <p class="text-sm text-slate-500 max-w-md mx-auto">Discover free alternatives and top-tier premium software platforms optimized for your specific projects.</p>
+                
+                <!-- Instant Filter Input Bar -->
+                <div class="relative max-w-xl mx-auto mt-2">
+                    <input 
+                        type="text" 
+                        id="search-input"
+                        placeholder="Search tools by name, utility, or keywords..." 
+                        class="w-full pl-12 pr-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition"
+                        oninput="filterDirectoryData()"
+                    />
+                    <span class="absolute left-4 top-4 text-slate-400 font-bold">🔍</span>
+                </div>
+            </div>
+
+            <!-- THE TWO MAIN LAYOUT ROWS (FREE VS PAID) -->
+            <div class="space-y-8">
+                
+                <!-- ROW 1: FREE & FREEMIUM PLATFORMS -->
+                <div>
+                    <div class="flex items-center space-x-2.5 mb-4 px-1">
+                        <div class="w-2.5 h-6 bg-emerald-500 rounded-full"></div>
+                        <h2 class="text-xl font-bold text-slate-900 tracking-tight">Free & Freemium Alternatives</h2>
+                        <span id="free-count" class="bg-emerald-50 text-emerald-700 text-xs font-semibold px-2.5 py-0.5 rounded-full border border-emerald-100">0 loaded</span>
+                    </div>
+                    <div id="free-row-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Populated Dynamically -->
+                    </div>
+                </div>
+
+                <!-- ROW 2: PAID & PREMIUM PLATFORMS -->
+                <div>
+                    <div class="flex items-center space-x-2.5 mb-4 px-1">
+                        <div class="w-2.5 h-6 bg-indigo-500 rounded-full"></div>
+                        <h2 class="text-xl font-bold text-slate-900 tracking-tight">Premium & Pro Paid Software</h2>
+                        <span id="paid-count" class="bg-indigo-50 text-indigo-700 text-xs font-semibold px-2.5 py-0.5 rounded-full border border-indigo-100">0 loaded</span>
+                    </div>
+                    <div id="paid-row-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Populated Dynamically -->
+                    </div>
+                </div>
+
+            </div>
+        </main>
+
+        <!-- RIGHT COLUMN: STICKY SIDEBAR (4 Rows Wide on Desktop) -->
+        <aside class="lg:col-span-4 space-y-6">
+            
+            <!-- POPULAR CATEGORIES WIDGET (Aixploria Style) -->
+            <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs sticky top-24">
+                <h3 class="text-sm font-bold uppercase tracking-wider text-slate-400 mb-3.5">Popular Categories</h3>
+                <nav id="sidebar-categories" class="space-y-1">
+                    <!-- JavaScript automatically generates menu tags here -->
+                </nav>
+
+                <!-- WORKSPACE PROMOTION: YOUTUBE VIDEO FEATURE BLOCK -->
+                <div class="mt-6 pt-6 border-t border-slate-100 space-y-4">
+                    <h3 class="text-sm font-bold uppercase tracking-wider text-slate-400">Featured AI Breakdown</h3>
+                    
+                    <!-- Content Creator Channel Hook -->
+                    <div class="bg-gradient-to-br from-slate-900 to-indigo-950 text-white rounded-xl p-4 relative overflow-hidden shadow-md">
+                        <div class="relative z-10 space-y-2">
+                            <span class="bg-red-600 text-white text-[10px] uppercase font-bold px-2 py-0.5 rounded tracking-widest">Trending Talks</span>
+                            <h4 class="font-bold text-sm leading-tight">Learn how to build AI video channels fast!</h4>
+                            <p class="text-xs text-slate-300">Watch our latest continuous recap tutorials mapping strategy and edits.</p>
+                            
+                            <!-- Video Embed Anchor / Link Placeholder -->
+                            <a href="https://youtube.com" target="_blank" class="inline-flex items-center mt-2 text-xs font-bold text-red-400 hover:text-red-300 transition">
+                                Watch Tutorial Video ➔
+                            </a>
+                        </div>
+                        <div class="absolute right-[-10px] bottom-[-10px] text-slate-800 text-7xl font-black select-none opacity-20">▶</div>
+                    </div>
+                </div>
+            </div>
+
+        </aside>
+    </div>
+
+    <!-- CORE LOGIC DATABASE & RENDER ENGINES -->
+    <script>
+        // Database structured clearly for quick updates
+        const toolDataset = [
+            { name: "Buffer", pricing: "free", category: "marketing", tag: "Social Media", desc: "Schedule posts automatically to multiple channels using their continuous free package layers.", url: "#" },
+            { name: "Publer", pricing: "free", category: "marketing", tag: "Automation", desc: "Visual automation dashboard allowing clean curation workflows without subscription friction.", url: "#" },
+            { name: "Perplexity AI", pricing: "free", category: "seo", tag: "Research AI", desc: "Provides conversational intelligence connected to real-time search data arrays instantly.", url: "#" },
+            { name: "AnswerThePublic", pricing: "free", category: "seo", tag: "Keywords", desc: "Maps semantic query clusters tracking user search habits across major engine structures.", url: "#" },
+            { name: "ChatGPT", pricing: "free", category: "productivity", tag: "Chatbot", desc: "Universal AI text companion running optimized models for general summarization updates.", url: "#" },
+            { name: "Goblin.tools", pricing: "free", category: "productivity", tag: "Task Manager", desc: "Breaks comprehensive daunting operations into small digestible bullet sequences.", url: "#" },
+            
+            { name: "Jasper AI", pricing: "paid", category: "marketing", tag: "Copywriting", desc: "Enterprise engine structured to process brand scripts and product announcements at scale.", url: "#" },
+            { name: "AdCreative.ai", pricing: "paid", category: "marketing", tag: "Ad Generator", desc: "Generates banner ads matching specific data-backed conversion frameworks.", url: "#" },
+            { name: "Surfer SEO", pricing: "paid", category: "seo", tag: "SEO Ranker", desc: "Processes top competitive outlines to structure a ready-to-publish content plan.", url: "#" },
+            { name: "Scalenut", pricing: "paid", category: "seo", tag: "Content Hub", desc: "Generates entire search engine optimized workflows from keyword roots directly.", url: "#" },
+            { name: "Motion", pricing: "paid", category: "productivity", tag: "AI Calendar", desc: "Automatically recalculates priorities dynamically when your workspace updates.", url: "#" },
+            { name: "Granola AI", pricing: "paid", category: "productivity", tag: "Meeting Note", desc: "Transcribes audio and maps strategic meeting objectives cleanly without background noise.", url: "#" }
+        ];
+
+        const readableCategories = {
+            "all": "🌐 Show All Tools",
+            "marketing": "📈 Marketing & Social Media",
+            "seo": "🔍 SEO & Copywriting",
+            "productivity": "⚡ Productivity & Office"
+        };
+
+        let activeCategoryFilter = "all";
+
+        // Generate Sidebar Navigation Lists
+        function initSidebarMenu() {
+            const container = document.getElementById('sidebar-categories');
+            container.innerHTML = '';
+            
+            Object.keys(readableCategories).forEach(key => {
+                const navLink = document.createElement('button');
+                navLink.innerText = readableCategories[key];
+                navLink.className = `w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium transition flex justify-between items-center cursor-pointer ${
+                    key === activeCategoryFilter 
+                    ? 'bg-indigo-50 text-indigo-700 font-semibold' 
+                    : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
+                }`;
+                navLink.onclick = () => {
+                    activeCategoryFilter = key;
+                    initSidebarMenu(); // Refresh visual active states
+                    filterDirectoryData();
+                };
+                container.appendChild(navLink);
+            });
+        }
+
+        // Core Render Engine
+        function filterDirectoryData() {
+            const searchStr = document.getElementById('search-input').value.toLowerCase();
+            const freeContainer = document.getElementById('free-row-grid');
+            const paidContainer = document.getElementById('free-row-grid'); // Fixed reference tracking row structures
+            
+            const targetFreeGrid = document.getElementById('free-row-grid');
+            const targetPaidGrid = document.getElementById('paid-row-grid');
+
+            targetFreeGrid.innerHTML = '';
+            targetPaidGrid.innerHTML = '';
+
+            let freeCounter = 0;
+            let paidCounter = 0;
+
+            toolDataset.forEach(tool => {
+                // Match search parameters
+                const matchesSearch = tool.name.toLowerCase().includes(searchStr) || tool.desc.toLowerCase().includes(searchStr) || tool.tag.toLowerCase().includes(searchStr);
+                // Match category parameters
+                const matchesCategory = activeCategoryFilter === "all" || tool.category === activeCategoryFilter;
+
+                if (matchesSearch && matchesCategory) {
+                    const cardElement = document.createElement('div');
+                    cardElement.className = "bg-white border border-slate-100 rounded-xl p-4 shadow-xs hover:shadow-md hover:border-slate-200 transition duration-200 flex flex-col justify-between space-y-3";
+                    cardElement.innerHTML = `
+                        <div>
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-bold text-slate-900 tracking-tight text-base">${tool.name}</h3>
+                                <span class="bg-slate-100 text-slate-600 text-[11px] font-medium px-2 py-0.5 rounded-md border border-slate-200/60">${tool.tag}</span>
+                            </div>
+                            <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">${tool.desc}</p>
+                        </div>
+                        <div class="pt-2 flex items-center justify-between border-t border-slate-50">
+                            <span class="text-[10px] font-bold uppercase tracking-wider ${tool.pricing === 'free' ? 'text-emerald-600' : 'text-indigo-600'}">${tool.pricing}</span>
+                            <a href="${tool.url}" target="_blank" class="text-xs font-semibold text-indigo-600 hover:text-indigo-800 transition">Open Tool ↗</a>
+                        </div>
+                    `;
+
+                    if (tool.pricing === 'free') {
+                        targetFreeGrid.appendChild(cardElement);
+                        freeCounter++;
+                    } else {
+                        targetPaidGrid.appendChild(cardElement);
+                        paidCounter++;
+                    }
+                }
+            });
+
+            // Update badge metric totals
+            document.getElementById('free-count').innerText = `${freeCounter} software items`;
+            document.getElementById('paid-count').innerText = `${paidCounter} software items`;
+
+            // Display placeholder message if arrays evaluate empty
+            if (freeCounter === 0) targetFreeGrid.innerHTML = `<p class="text-slate-400 text-xs py-2 px-1">No matching free tools inside this database configuration.</p>`;
+            if (paidCounter === 0) targetPaidGrid.innerHTML = `<p class="text-slate-400 text-xs py-2 px-1">No matching paid tools inside this database configuration.</p>`;
+        }
+
+        // Initialize App Operations
+        initSidebarMenu();
+        filterDirectoryData();
+    </script>
+</body>
+  </html>
+  
